@@ -86,7 +86,7 @@ const PATIENTS = [
 
 const days = [
   {
-    id:1, date:"Mon 30 Jun", label:"Day 1", title:"How Data Is Stored",
+    id:1, date:"Mon 29 Jun", label:"Day 1", title:"How Data Is Stored",
     subtitle:"Tables, rows, columns, data types & relationships", phase:"foundations", recap:null,
     sections:[
       {type:"intro", content:"Hey Berry 👋 Welcome to your first day. Before we open any software, we're going to spend a bit of time understanding how data is actually organised — because everything you do in Power BI will make way more sense once this clicks. Don't worry, this is all pretty intuitive once you see it with a real example."},
@@ -140,7 +140,7 @@ const days = [
     ],
   },
   {
-    id:2, date:"Tue 1 Jul", label:"Day 2", title:"Your First Look at the Data",
+    id:2, date:"Tue 30 Jun", label:"Day 2", title:"Your First Look at the Data",
     subtitle:"Open the files, get familiar, spot what's off", phase:"foundations",
     recap:"Yesterday you learned how data is organised into tables with rows and columns, the five key data types, and how Primary and Foreign Keys link tables together. Today you're opening the actual files.",
     sections:[
@@ -167,12 +167,12 @@ const days = [
         {id:"o4", text:"Check the RecoveryStatus column — are all the values written the same way?"},
       ]},
       {type:"comprehension", title:"Quick Questions — answer using filters or COUNTIF", questions:[
-        "How many patients were referred for Low Mood?",
-        "How many sessions were marked as DNA (Did Not Attend)?",
-        "What is the most common presenting problem across all patients?",
-        "How many patients have been discharged (check Outcomes)?",
-        "Which session type (phone / video / face-to-face) appears most often?",
-        "How many Turkish patients are in the dataset?",
+        {q:"How many patients were referred for Low Mood?", a:"9 patients — use COUNTIF on the PresentingProblem column filtering for \"Low Mood\"."},
+        {q:"How many sessions were marked as DNA (Did Not Attend)?", a:"8 sessions — COUNTIF on the Attendance column for \"DNA\". Note: one row says \"Not attended\" which you\'ll standardise in Power BI."},
+        {q:"What is the most common presenting problem across all patients?", a:"Low Mood — it appears most frequently across the Patients table."},
+        {q:"How many patients have been discharged (check Outcomes)?", a:"28 patients have an outcome record. PAT-025 and PAT-029 have no outcome row yet — they\'re still active."},
+        {q:"Which session type (phone / video / face-to-face) appears most often?", a:"Telephone — COUNTIF the SessionType column to compare all three types."},
+        {q:"How many Turkish patients are in the dataset?", a:"6 Turkish patients — Rojiin Demir, Sinem Yilmaz, Dilan Arslan, Beritan Kaya, Dilal Ozturk and Rojiin Celik."},
       ]},
       {type:"resources", title:"Useful for Today", links:[
         {label:"Excel — Remove Duplicates (Microsoft Support)", url:"https://support.microsoft.com/en-us/office/find-and-remove-duplicates-00e35bea-b46a-4d5d-b28e-66a552dc138d", note:"If you need a reminder"},
@@ -186,7 +186,7 @@ const days = [
     ],
   },
   {
-    id:3, date:"Thu 3 Jul", label:"Day 3", title:"Into Power BI",
+    id:3, date:"Thu 2 Jul", label:"Day 3", title:"Into Power BI",
     subtitle:"Load your data, meet Power Query, start cleaning", phase:"powerbi",
     recap:"On Tuesday you opened the three source files, spotted inconsistencies, DNA errors, typos and duplicates. You know this dataset well now. Today we bring it into Power BI.",
     sections:[
@@ -222,7 +222,7 @@ const days = [
     ],
   },
   {
-    id:4, date:"Fri 4 Jul", label:"Day 4", title:"Building the Star Schema",
+    id:4, date:"Fri 3 Jul", label:"Day 4", title:"Building the Star Schema",
     subtitle:"Relationships, model view & your first visuals", phase:"powerbi",
     recap:"Yesterday you loaded your three tables into Power BI, cleaned in Power Query, and got your tables ready. Today you're connecting them — this is where the star schema comes to life.",
     sections:[
@@ -260,7 +260,7 @@ const days = [
     ],
   },
   {
-    id:5, date:"Mon 7 Jul", label:"Day 5", title:"Scores, Averages & Age Bands",
+    id:5, date:"Mon 6 Jul", label:"Day 5", title:"Scores, Averages & Age Bands",
     subtitle:"Wellbeing assessments, DAX basics & conditional columns", phase:"powerbi",
     recap:"On Friday you built the star schema — Patients at the centre, Sessions, Outcomes and GP Surgeries connected. You built your first visuals and saw how filters flow through relationships. Today we add Wellbeing Assessments and start with DAX.",
     sections:[
@@ -296,7 +296,7 @@ const days = [
     ],
   },
   {
-    id:6, date:"Tue 8 Jul", label:"Day 6", title:"New Data Arrives",
+    id:6, date:"Tue 7 Jul", label:"Day 6", title:"New Data Arrives",
     subtitle:"Append, prefix cleaning & seeing the refresh work", phase:"powerbi",
     recap:"Yesterday you added the Wellbeing Assessment table, created your first DAX measures and built age bands. Today you see one of the most satisfying things Power BI can do — handle new data automatically.",
     sections:[
@@ -328,7 +328,7 @@ const days = [
     ],
   },
   {
-    id:7, date:"Wed 9 Jul", label:"Day 7", title:"DAX — Going Deeper",
+    id:7, date:"Wed 8 Jul", label:"Day 7", title:"DAX — Going Deeper",
     subtitle:"CALCULATE, FILTER & the Date Table", phase:"powerbi",
     recap:"Yesterday you handled a real-world scenario — new data with mismatched IDs, fixed it in Power Query, appended and watched the data update. Today we go deeper into DAX.",
     sections:[
@@ -367,7 +367,7 @@ const days = [
     ],
   },
   {
-    id:8, date:"Thu 10 Jul", label:"Day 8", title:"Building a Real Report",
+    id:8, date:"Thu 9 Jul", label:"Day 8", title:"Building a Real Report",
     subtitle:"Design, layout & telling a story with data", phase:"powerbi",
     recap:"Yesterday you went deep into DAX — CALCULATE, Recovery Rate, DNA Rate, and the Date Table. You have a proper working model with real measures. Today is about turning that into something a stakeholder would actually read.",
     sections:[
@@ -396,7 +396,7 @@ const days = [
     ],
   },
   {
-    id:9, date:"Fri 11 Jul", label:"Day 9", title:"Mini Project",
+    id:9, date:"Fri 10 Jul", label:"Day 9", title:"Mini Project",
     subtitle:"Build a board-ready report from a brief", phase:"project",
     recap:"Yesterday you built a structured dashboard with KPIs, charts, slicers, formatting, and a patient drillthrough page. You're thinking about design as well as data now. Today is your final day — a proper test.",
     sections:[
@@ -688,6 +688,34 @@ function DrillthroughChallenge() {
   );
 }
 
+function ComprehensionSection({section}) {
+  const [revealed, setRevealed] = useState({});
+  return (
+    <div style={{background:COLORS.card,border:`1.5px solid ${COLORS.border}`,borderRadius:16,padding:22}}>
+      <div style={{fontWeight:700,fontSize:15,color:COLORS.text,marginBottom:6}}>{section.title}</div>
+      <div style={{fontSize:13,color:COLORS.muted,marginBottom:14}}>Work out the answer in Excel first, then peek to check.</div>
+      <div style={{display:"flex",flexDirection:"column",gap:12}}>
+        {section.questions.map((item,qi)=>(
+          <div key={qi} style={{background:COLORS.bg,borderRadius:10,padding:"14px 16px"}}>
+            <div style={{fontSize:14,color:COLORS.text,lineHeight:1.5,marginBottom:8}}>
+              <span style={{fontWeight:700,color:COLORS.primary,marginRight:8}}>Q{qi+1}.</span>{item.q}
+            </div>
+            {revealed[qi]
+              ? <div style={{background:COLORS.greenLight,border:`1.5px solid ${COLORS.green}`,borderRadius:8,padding:"10px 14px",fontSize:13,color:COLORS.green,lineHeight:1.6}}>
+                  ✅ {item.a}
+                </div>
+              : <button onClick={()=>setRevealed(r=>({...r,[qi]:true}))}
+                  style={{background:"none",border:`1.5px solid ${COLORS.border}`,borderRadius:8,padding:"7px 14px",fontSize:12,color:COLORS.muted,cursor:"pointer",fontFamily:"inherit",fontWeight:600}}>
+                  Peek at answer 👀
+                </button>
+            }
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function DayContent({day}) {
   return (
     <div style={{display:"flex",flexDirection:"column",gap:20}}>
@@ -711,16 +739,7 @@ function DayContent({day}) {
           </div>
         );
         if(s.type==="comprehension") return (
-          <div key={i} style={{background:COLORS.card,border:`1.5px solid ${COLORS.border}`,borderRadius:16,padding:22}}>
-            <div style={{fontWeight:700,fontSize:15,color:COLORS.text,marginBottom:14}}>{s.title}</div>
-            <div style={{display:"flex",flexDirection:"column",gap:10}}>
-              {s.questions.map((q,qi)=>(
-                <div key={qi} style={{background:COLORS.bg,borderRadius:10,padding:"12px 16px",fontSize:14,color:COLORS.text,lineHeight:1.5}}>
-                  <span style={{fontWeight:700,color:COLORS.primary,marginRight:8}}>Q{qi+1}.</span>{q}
-                </div>
-              ))}
-            </div>
-          </div>
+          <ComprehensionSection key={i} section={s}/>
         );
         if(s.type==="brief") return (
           <div key={i} style={{background:"#1A1A2E",borderRadius:16,padding:24}}>
@@ -818,7 +837,7 @@ export default function App() {
           <div style={{padding:"18px 0 0",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
             <div>
               <div style={{fontWeight:800,fontSize:20,color:COLORS.text,letterSpacing:"-0.5px"}}>Berry's Power BI Course 📊</div>
-              <div style={{fontSize:13,color:COLORS.muted,marginTop:2}}>30 Jun → 11 Jul · 1–2 hrs a day · You've got this</div>
+              <div style={{fontSize:13,color:COLORS.muted,marginTop:2}}>29 Jun → 10 Jul · 1–2 hrs a day · You've got this</div>
             </div>
           </div>
           <div style={{display:"flex",gap:0,marginTop:16,overflowX:"auto"}}>
