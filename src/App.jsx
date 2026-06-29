@@ -166,13 +166,23 @@ const days = [
         {id:"o3", text:"Have a look at the PresentingProblemAtDischarge column — does everything look right?"},
         {id:"o4", text:"Check the RecoveryStatus column — are all the values written the same way?"},
       ]},
-      {type:"comprehension", title:"Quick Questions — answer using filters or COUNTIF", questions:[
+
+      {type:"bonus", title:"⭐ Bonus Challenge — Excel Formula Fun", tasks:[
+        {id:"b2_1", text:"Add a new column called Title to the Patients table. If Gender is Male → Mr, if Female → Ms. Use an IF formula: =IF(E2=\"Male\",\"Mr\",\"Ms\")"},
+        {id:"b2_2", text:"Add a new column called Initials. This should show the first letter of FirstName and first letter of LastName joined together — e.g. Sophie Clarke → SC. Use: =LEFT(B2,1)&LEFT(C2,1)"},
+        {id:"b2_3", text:"Add a FullName column that combines Title, FirstName and LastName into one — e.g. \"Ms Sophie Clarke\". Use: =D2&\" \"&B2&\" \"&C2 (where D2 is your Title column)."},
+        {id:"b2_4", text:"Notice how the Gender column has inconsistencies (female, F etc) — does your Title formula handle those? What happens if Gender = \"female\" lowercase? Fix the Gender column first and see what changes."},
+      ]},
+      {type:"comprehension", title:"Quick Questions — answer using filters or COUNTIF / COUNTIFS", questions:[
         {q:"How many patients were referred for Low Mood?", a:"9 patients — use COUNTIF on the PresentingProblem column filtering for \"Low Mood\"."},
         {q:"How many sessions were marked as DNA (Did Not Attend)?", a:"8 sessions — COUNTIF on the Attendance column for \"DNA\". Note: one row says \"Not attended\" which you\'ll standardise in Power BI."},
         {q:"What is the most common presenting problem across all patients?", a:"Low Mood — it appears most frequently across the Patients table."},
         {q:"How many patients have been discharged (check Outcomes)?", a:"28 patients have an outcome record. PAT-025 and PAT-029 have no outcome row yet — they\'re still active."},
         {q:"Which session type (phone / video / face-to-face) appears most often?", a:"Telephone — COUNTIF the SessionType column to compare all three types."},
         {q:"How many Turkish patients are in the dataset?", a:"6 Turkish patients — Rojiin Demir, Sinem Yilmaz, Dilan Arslan, Beritan Kaya, Dilal Ozturk and Rojiin Celik."},
+        {q:"🧶 Multi-criteria: How many patients are Nigerian AND referred for Anxiety? Use COUNTIFS with two criteria ranges.", a:"1 patient — James Okafor. COUNTIFS(Nationality,\"Nigerian\",PresentingProblem,\"Anxiety\"). COUNTIFS lets you stack multiple conditions unlike COUNTIF which only takes one."},
+        {q:"🧶 Multi-criteria: How many patients are Turkish OR Nigerian? Hint — you can\'t do OR directly in COUNTIFS, so use two separate COUNTIFs and add them together.", a:"8 patients total — 6 Turkish + 2 Nigerian (James Okafor and Grace Osei and Yemi Adeyemi). Formula: =COUNTIF(Nationality,\"Turkish\")+COUNTIF(Nationality,\"Nigerian\")"},
+        {q:"🧶 Multi-criteria: How many Female patients were referred for Low Mood? Use COUNTIFS with Gender and PresentingProblem.", a:"7 patients — COUNTIFS(Gender,\"Female\",PresentingProblem,\"Low Mood\"). This is where COUNTIFS shines — stacking two conditions to get a precise answer."},
       ]},
       {type:"resources", title:"Useful for Today", links:[
         {label:"Excel — Remove Duplicates (Microsoft Support)", url:"https://support.microsoft.com/en-us/office/find-and-remove-duplicates-00e35bea-b46a-4d5d-b28e-66a552dc138d", note:"If you need a reminder"},
@@ -244,6 +254,13 @@ const days = [
         {id:"g4", text:"In Model view, connect SurgeryID from GP Surgeries to SurgeryID in Patients."},
         {id:"g5", text:"Add Borough as a slicer on your report. See how your bar chart updates? That's the relationship working."},
       ]},
+
+      {type:"bonus", title:"⭐ Bonus Challenge — Full Name & Title in Power Query", tasks:[
+        {id:"b4_1", text:"In Power Query on the Patients table, add a Custom Column called FullName. Formula: [FirstName] & \" \" & [LastName]. This merges both name columns into one."},
+        {id:"b4_2", text:"Add a Conditional Column called Title. If Gender = Male → Mr, if Gender = Female → Ms, otherwise → —. This mirrors what you did in Excel but now it\'s repeatable on every refresh."},
+        {id:"b4_3", text:"Now add a DisplayName column that combines Title and FullName — e.g. \"Ms Sophie Clarke\". Formula: [Title] & \" \" & [FullName]."},
+        {id:"b4_4", text:"Use DisplayName on a visual instead of FirstName. See how much cleaner it looks on a patient-level report?"},
+      ]},
       {type:"resources", title:"Watch These", links:[
         {label:"YouTube — Power BI Data Modelling & Relationships (Guy in a Cube)", url:"https://www.youtube.com/watch?v=MrLnibDCeQA", note:"Exactly what you're doing today"},
         {label:"YouTube — Star Schema explained simply (SQLBI)", url:"https://www.youtube.com/watch?v=fpk2lqp2FfY", note:"10 mins — worth it for the concept"},
@@ -280,6 +297,12 @@ const days = [
       },
       {type:"lesson", title:"Age Banding — Conditional Column", content:"The Patients table has individual ages. For reporting you want age groups. Go back into Power Query (Home → Transform Data), select Patients, then Add Column → Conditional Column:\n\n• If Age <= 25 → '18–25'\n• If Age <= 35 → '26–35'\n• If Age <= 50 → '36–50'\n• Otherwise → '51+'\n\nClose & Apply, then use AgeBand as an axis on a chart.",
         tip:"Age bands are one of the most common things a consultant adds to a dataset. You'll do this in almost every health or HR dataset you work with."},
+
+      {type:"bonus", title:"⭐ Bonus Challenge — SWITCH for Age Bands in DAX", tasks:[
+        {id:"b5_1", text:"You built age bands in Power Query using a Conditional Column. Now try doing the same thing in DAX using SWITCH. In the Patients table, add a New Column:\nAgeBandDAX = SWITCH(TRUE(), Patients[Age] <= 25, \"18-25\", Patients[Age] <= 35, \"26-35\", Patients[Age] <= 50, \"36-50\", \"51+\")"},
+        {id:"b5_2", text:"Compare AgeBandDAX to your Power Query AgeBand column — do they match? If not, why?"},
+        {id:"b5_3", text:"Which approach do you prefer and why? Think about the Power Query one updating automatically on refresh vs the DAX one being in the model. Discuss with Sol."},
+      ]},
       {type:"resources", title:"Watch These", links:[
         {label:"YouTube — DAX Measures vs Calculated Columns (Guy in a Cube)", url:"https://www.youtube.com/watch?v=53RFhSzBBi8", note:"The most important distinction in Power BI"},
         {label:"YouTube — Conditional Columns in Power Query (Wyn Hopkins)", url:"https://www.youtube.com/watch?v=JTKMbSGSlhc", note:"Quick and practical"},
@@ -354,6 +377,12 @@ const days = [
         {id:"d3", text:"Create the DNA Rate measure. What's the DNA rate for your dataset?"},
         {id:"d4", text:"Create your Date Table using the CALENDAR formula. Connect it to Sessions and Patients."},
         {id:"d5", text:"Add a Month slicer to your report using your Date Table. Filter to a single month — do your measures update?"},
+      ]},
+
+      {type:"bonus", title:"⭐ Bonus Challenge — Multi-Nationality Measures in DAX", tasks:[
+        {id:"b7_1", text:"Create a measure called Turkish + Nigerian Patients that counts patients from either nationality:\nTurkish + Nigerian = CALCULATE(COUNTROWS(Patients), Patients[Nationality] IN {\"Turkish\", \"Nigerian\"})\nThe IN operator is your OR logic in DAX."},
+        {id:"b7_2", text:"Create a measure for DNA Rate by Nationality. Put it in a table visual with Nationality on rows. Which nationality has the highest DNA rate?"},
+        {id:"b7_3", text:"Create a measure: Low Mood Female Count = CALCULATE(COUNTROWS(Patients), Patients[PresentingProblem] = \"Low Mood\", Patients[Gender] = \"Female\"). This is your COUNTIFS equivalent in DAX — stacking two filters inside CALCULATE."},
       ]},
       {type:"resources", title:"Watch These", links:[
         {label:"YouTube — CALCULATE explained (Guy in a Cube)", url:"https://www.youtube.com/watch?v=Xz9MBFv4fac", note:"The best explanation of CALCULATE out there"},
@@ -717,22 +746,32 @@ function ComprehensionSection({section}) {
 }
 
 function DayContent({day}) {
+  const mainSections = day.sections.filter(s=>s.type!=="bonus");
+  const bonusSections = day.sections.filter(s=>s.type==="bonus");
+  const allOrdered = [...mainSections, ...bonusSections];
   return (
     <div style={{display:"flex",flexDirection:"column",gap:20}}>
       {day.recap && (
         <div style={{background:COLORS.accentLight,border:`1.5px solid ${COLORS.accent}`,borderRadius:14,padding:18}}>
           <div style={{fontWeight:700,color:COLORS.accent,fontSize:13,marginBottom:6}}>📚 Yesterday's Recap</div>
-          <div style={{color:COLORS.text,fontSize:14,lineHeight:1.7}}>{day.recap}</div>
+          <div className="day-text" style={{color:COLORS.text,fontSize:14,lineHeight:1.7}}>{day.recap}</div>
         </div>
       )}
-      {day.sections.map((s,i)=>{
-        if(s.type==="intro") return <div key={i} style={{color:COLORS.text,fontSize:15,lineHeight:1.8,padding:"4px 0"}}>{s.content}</div>;
+      {allOrdered.map((s,i)=>{
+        if(s.type==="intro") return <div key={i} className="day-text" style={{color:COLORS.text,fontSize:15,lineHeight:1.8,padding:"4px 0"}}>{s.content}</div>;
         if(s.type==="drillthrough") return <DrillthroughChallenge key={i}/>;
+        if(s.type==="bonus") return (
+          <div key={i} style={{background:"linear-gradient(135deg,#fff8f0 0%,#fff3e8 100%)",border:`2px solid ${COLORS.accent}`,borderRadius:16,padding:22}}>
+            <div style={{fontWeight:700,fontSize:16,color:COLORS.accent,marginBottom:4}}>{s.title}</div>
+            <div style={{fontSize:13,color:COLORS.muted,marginBottom:14}}>Optional — but do try it. These are the skills that make you look sharp.</div>
+            <TaskList tasks={s.tasks}/>
+          </div>
+        );
         if(s.type==="quiz") return <QuizSection key={i} questions={s.questions} hard={false}/>;
         if(s.type==="hardquiz") return <QuizSection key={i} questions={s.questions} hard={true}/>;
         if(s.type==="tasks") return (
-          <div key={i} style={{background:COLORS.card,border:`1.5px solid ${COLORS.border}`,borderRadius:16,padding:22}}>
-            <div style={{fontWeight:700,fontSize:16,color:COLORS.text,marginBottom:4}}>{s.title}</div>
+          <div key={i} className="day-card" style={{background:COLORS.card,border:`1.5px solid ${COLORS.border}`,borderRadius:16,padding:22}}>
+            <div className="day-text" style={{fontWeight:700,fontSize:16,color:COLORS.text,marginBottom:4}}>{s.title}</div>
             {s.file&&<div style={{fontSize:13,color:COLORS.muted,marginBottom:14}}>📁 File: <span style={{fontFamily:"monospace",color:COLORS.primary}}>{s.file}</span></div>}
             {!s.file&&<div style={{marginBottom:14}}/>}
             <TaskList tasks={s.tasks}/>
@@ -765,9 +804,9 @@ function DayContent({day}) {
           </div>
         );
         if(s.type==="lesson") return (
-          <div key={i} style={{background:COLORS.card,border:`1.5px solid ${COLORS.border}`,borderRadius:16,padding:22}}>
-            <div style={{fontWeight:700,fontSize:16,color:COLORS.text,marginBottom:12}}>{s.title}</div>
-            <div style={{color:COLORS.text,fontSize:14,lineHeight:1.8,whiteSpace:"pre-line"}}>{s.content}</div>
+          <div key={i} className="day-card" style={{background:COLORS.card,border:`1.5px solid ${COLORS.border}`,borderRadius:16,padding:22}}>
+            <div className="day-text" style={{fontWeight:700,fontSize:16,color:COLORS.text,marginBottom:12}}>{s.title}</div>
+            <div className="day-text" style={{color:COLORS.text,fontSize:14,lineHeight:1.8,whiteSpace:"pre-line"}}>{s.content}</div>
             {s.table&&<SimpleTable headers={s.table.headers} rows={s.table.rows}/>}
             {s.dualTable&&(
               <div style={{display:"flex",gap:12,marginTop:16,flexWrap:"wrap"}}>
@@ -779,7 +818,7 @@ function DayContent({day}) {
                 ))}
               </div>
             )}
-            {s.afterDual&&<div style={{marginTop:12,color:COLORS.text,fontSize:14,lineHeight:1.7}}>{s.afterDual}</div>}
+            {s.afterDual&&<div className="day-text" style={{marginTop:12,color:COLORS.text,fontSize:14,lineHeight:1.7}}>{s.afterDual}</div>}
             {s.types&&(
               <div style={{display:"flex",flexDirection:"column",gap:10,marginTop:14}}>
                 {s.types.map((t,ti)=>(
@@ -827,23 +866,41 @@ function DayContent({day}) {
 export default function App() {
   const [activeTab,setActiveTab]=useState("day-1");
   const [activePage,setActivePage]=useState("course");
+  const [dark,setDark]=useState(false);
   const phaseColour=p=>p==="foundations"?COLORS.accent:p==="project"?COLORS.green:COLORS.primary;
   const phaseLabel=p=>p==="foundations"?"Foundations":p==="project"?"Project":"Power BI";
+  const C = dark ? {...COLORS, bg:"#0f0f1a", card:"#1a1a2e", text:"#e2e8f0", muted:"#94a3b8", border:"#2d3748"} : COLORS;
+
+  const headerBg = dark ? "#0f0f1a" : "#1a0a00";
+  const headerBorder = dark ? "#2d3748" : "#3d2000";
+  const bgColor = dark ? C.bg : COLORS.bg;
 
   return (
-    <div style={{fontFamily:"'Inter',-apple-system,BlinkMacSystemFont,sans-serif",background:COLORS.bg,minHeight:"100vh",color:COLORS.text}}>
-      <div style={{background:COLORS.card,borderBottom:`1px solid ${COLORS.border}`,padding:"0 24px"}}>
+    <div data-dark={dark} style={{fontFamily:"'Inter',-apple-system,BlinkMacSystemFont,sans-serif",background:bgColor,minHeight:"100vh",color:dark?C.text:COLORS.text,transition:"background 0.3s,color 0.3s"}}>
+      <style>{`
+        [data-dark="true"] .day-text { color: #e2e8f0 !important; }
+        [data-dark="true"] .day-muted { color: #94a3b8 !important; }
+        [data-dark="true"] .day-card { background: #1a1a2e !important; border-color: #2d3748 !important; }
+        [data-dark="true"] .day-bg { background: #0f0f1a !important; }
+      `}</style>
+      <div style={{background:headerBg,borderBottom:`1px solid ${headerBorder}`,padding:"0 24px"}}>
         <div style={{maxWidth:960,margin:"0 auto"}}>
           <div style={{padding:"18px 0 0",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-            <div>
-              <div style={{fontWeight:800,fontSize:20,color:COLORS.text,letterSpacing:"-0.5px"}}>Berry's Power BI Course 📊</div>
-              <div style={{fontSize:13,color:COLORS.muted,marginTop:2}}>29 Jun → 10 Jul · 1–2 hrs a day · You've got this</div>
+            <div style={{display:"flex",alignItems:"center",gap:12}}>
+              <span style={{fontSize:28}}>🍓</span>
+              <div>
+                <div style={{fontWeight:800,fontSize:20,color:"#fff",letterSpacing:"-0.5px"}}>Berry's Power BI Course</div>
+                <div style={{fontSize:13,color:"#d4876a",marginTop:2}}>29 Jun → 10 Jul · 1–2 hrs a day · You've got this 🧶</div>
+              </div>
             </div>
+            <button onClick={()=>setDark(d=>!d)} style={{background:"rgba(255,255,255,0.1)",border:"1.5px solid rgba(255,255,255,0.2)",borderRadius:20,padding:"6px 16px",cursor:"pointer",fontSize:13,fontWeight:600,color:"#fff",fontFamily:"inherit",transition:"all 0.2s"}}>
+              {dark ? "☀️ Light" : "🌙 Dark"}
+            </button>
           </div>
           <div style={{display:"flex",gap:0,marginTop:16,overflowX:"auto"}}>
             {[{id:"course",label:"Course"},{id:"tips",label:"Tips & Tricks"},{id:"glossary",label:"Glossary"}].map(p=>(
               <button key={p.id} onClick={()=>setActivePage(p.id)}
-                style={{background:"none",border:"none",borderBottom:activePage===p.id?`3px solid ${COLORS.primary}`:"3px solid transparent",color:activePage===p.id?COLORS.primary:COLORS.muted,fontWeight:activePage===p.id?700:500,fontSize:14,padding:"10px 18px",cursor:"pointer",whiteSpace:"nowrap",fontFamily:"inherit",transition:"all 0.15s"}}>
+                style={{background:"none",border:"none",borderBottom:activePage===p.id?"3px solid #E8845C":"3px solid transparent",color:activePage===p.id?"#E8845C":"rgba(255,255,255,0.6)",fontWeight:activePage===p.id?700:500,fontSize:14,padding:"10px 18px",cursor:"pointer",whiteSpace:"nowrap",fontFamily:"inherit",transition:"all 0.15s"}}>
                 {p.label}
               </button>
             ))}
@@ -871,8 +928,8 @@ export default function App() {
                 <div key={day.id}>
                   <div style={{marginBottom:24}}>
                     <div style={{display:"inline-block",background:phaseColour(day.phase),color:"#fff",borderRadius:8,padding:"3px 12px",fontSize:12,fontWeight:700,marginBottom:10}}>{phaseLabel(day.phase)}</div>
-                    <div style={{fontWeight:800,fontSize:24,color:COLORS.text,letterSpacing:"-0.5px",lineHeight:1.2}}>{day.title}</div>
-                    <div style={{fontSize:15,color:COLORS.muted,marginTop:4}}>{day.subtitle}</div>
+                    <div className="day-text" style={{fontWeight:800,fontSize:24,color:COLORS.text,letterSpacing:"-0.5px",lineHeight:1.2}}>{day.title}</div>
+                    <div className="day-muted" style={{fontSize:15,color:COLORS.muted,marginTop:4}}>{day.subtitle}</div>
                   </div>
                   <DayContent day={day}/>
                 </div>
