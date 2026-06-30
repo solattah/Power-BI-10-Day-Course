@@ -86,7 +86,7 @@ const PATIENTS = [
 
 const days = [
   {
-    id:1, date:"Mon 29 Jun", label:"Day 1", title:"How Data Is Stored",
+    id:1, label:"Day 1", title:"How Data Is Stored",
     subtitle:"Tables, rows, columns, data types & relationships", phase:"foundations", recap:null,
     sections:[
       {type:"intro", content:"Hey Berry 👋 Welcome to your first day. Before we open any software, we're going to spend a bit of time understanding how data is actually organised — because everything you do in Power BI will make way more sense once this clicks. Don't worry, this is all pretty intuitive once you see it with a real example."},
@@ -140,7 +140,7 @@ const days = [
     ],
   },
   {
-    id:2, date:"Tue 30 Jun", label:"Day 2", title:"Your First Look at the Data",
+    id:2, label:"Day 2", title:"Your First Look at the Data",
     subtitle:"Open the files, get familiar, spot what's off", phase:"foundations",
     recap:"Yesterday you learned how data is organised into tables with rows and columns, the five key data types, and how Primary and Foreign Keys link tables together. Today you're opening the actual files.",
     sections:[
@@ -196,9 +196,9 @@ const days = [
     ],
   },
   {
-    id:3, date:"Thu 2 Jul", label:"Day 3", title:"Into Power BI",
+    id:3, label:"Day 3", title:"Into Power BI",
     subtitle:"Load your data, meet Power Query, start cleaning", phase:"powerbi",
-    recap:"On Tuesday you opened the three source files, spotted inconsistencies, DNA errors, typos and duplicates. You know this dataset well now. Today we bring it into Power BI.",
+    recap:"Last time you opened the three source files, spotted inconsistencies, DNA errors, typos and duplicates. You know this dataset well now. Today we bring it into Power BI.",
     sections:[
       {type:"intro", content:"Welcome to Power BI. This is where it all starts to come together. Today you're going to load your three cleaned files, meet Power Query (Power BI's built-in data cleaning tool), and fix the issues we left in from the source data. By the end of today you'll have clean tables loaded and ready to connect."},
       {type:"lesson", title:"The Three Views in Power BI", content:"When you open Power BI Desktop you'll see three icons on the left sidebar:\n\nReport view — this is where you build visuals and dashboards.\n\nTable view — shows you your data as a table. Good for checking things look right.\n\nModel view — shows your tables and how they relate. This is where you draw relationships."},
@@ -232,99 +232,186 @@ const days = [
     ],
   },
   {
-    id:4, date:"Fri 3 Jul", label:"Day 4", title:"Building the Star Schema",
-    subtitle:"Relationships, model view & your first visuals", phase:"powerbi",
-    recap:"Yesterday you loaded your three tables into Power BI, cleaned in Power Query, and got your tables ready. Today you're connecting them — this is where the star schema comes to life.",
+    id:4, label:"Day 4", title:"Dashboards, Star Schema & First Visuals",
+    subtitle:"What a dashboard actually is, your model, and your first 5 visuals", phase:"powerbi",
+    recap:"Last time you went into Power BI for the first time — loaded your tables, cleaned them in Power Query, fixed typos and nulls. Today's a big one. Day 4 has been updated after you've been breezing through 😉 you're on a corporate journey now.",
     sections:[
-      {type:"intro", content:"Today is one of the most important days of the course. You're going to go into Model view and draw the relationships between your tables. Once that's done, Power BI can answer questions that span multiple tables — like 'show me recovery rates by presenting problem' — without you having to manually look anything up."},
-      {type:"lesson", title:"The Star Schema", content:"A star schema has one central table that everything connects to. In your dataset, Patients is the hub. Every other table links to it.\n\nThink of it like a patient file — the patient is at the centre, and hanging off them are their sessions, their outcome, their assessment scores, and their GP surgery.", starDiagram:true},
-      {type:"tasks", title:"Build the Model", tasks:[
+      {type:"intro", content:"Today has a few parts: what a dashboard actually is and why it matters, the star schema (with a proper video this time), building your model and first 5 visuals, then a look at chart types and when to use each. By the end of today you'll have something that genuinely looks like a Power BI report."},
+      {type:"lesson", title:"What Is a Dashboard, Actually?", content:"A dashboard is a single screen that answers the questions a decision-maker has, at a glance, without them needing to dig through raw data themselves. Think about your old manager at the Talking Therapies service — they don't want to scroll through 300 rows of session data. They want to know: how many referrals this month, what's our recovery rate, are we hitting our DNA targets.\n\nA report is usually the full thing — multiple pages, lots of detail, built for someone who wants to explore. A dashboard is the summary view — built for someone who wants the headline in 10 seconds.\n\nIn Power BI the two blur together a bit (people use the words loosely) but the principle holds: every visual you add should answer a real question someone actually has."},
+      {type:"lesson", title:"Watch First — Star Schema Explained", content:"Before you touch the model, watch this. It explains fact tables, dimension tables, and why star schema is the standard approach — properly visual, properly clear.", video:{label:"Star Schema vs Snowflake Schema, Fact vs Dimension Table (codebasics)", url:"https://www.youtube.com/watch?v=hQvCOBv_-LE", note:"Covers exactly what you need before building your model today."}},
+      {type:"lesson", title:"Your Star Schema, Recap", content:"Patients is your hub. Sessions, Outcomes and GP Surgeries all connect to it. One patient → many sessions. One patient → one outcome. One surgery → many patients.\n\nToday you're connecting all four tables. You won't do anything further with GP Surgeries yet beyond loading and connecting it — that's coming later.", starDiagram:true},
+      {type:"tasks", title:"Build the Model — All 4 Tables", tasks:[
         {id:"m1", text:"Go to Model view (the icon that looks like three connected boxes on the left)."},
         {id:"m2", text:"Drag PatientID from Patients onto PatientID in Sessions. A line appears — that's your relationship."},
         {id:"m3", text:"Do the same to connect Patients → Outcomes via PatientID."},
-        {id:"m4", text:"Click each relationship line — check the cardinality shows one-to-many with the arrow flowing from Patients outward."},
-        {id:"m5", text:"Switch to Report view. Add a bar chart — drag PresentingProblem onto Axis and count of PatientID onto Values. You just built your first visual."},
+        {id:"m4", text:"Load GPSurgeries.xlsx via Get Data → Transform Data. There's something in there that needs cleaning before you use it — have a look."},
+        {id:"m5", text:"Once clean, Close & Apply, then connect SurgeryID from GP Surgeries to SurgeryID in Patients."},
+        {id:"m6", text:"Click each relationship line — check the cardinality shows one-to-many with the arrow flowing outward from the 'one' side each time."},
+        {id:"m7", text:"You now have a working 4-table star schema. Take a screenshot — this is worth being proud of."},
       ]},
-      {type:"lesson", title:"The GP Surgeries Table Arrives", content:"Your manager has just sent over a GP Surgeries reference file — Surgery ID, Surgery Name, PCN, Borough and Deprivation Quintile. The Patients table already has a SurgeryID column. Load it, clean it in Power Query (there's something in there), then connect it.",
-        tip:"Once GP Surgeries is connected to Patients, you can break down any visual by Borough or Deprivation Quintile — much more meaningful for a service report."},
-      {type:"tasks", title:"GP Surgeries — Load & Connect", tasks:[
-        {id:"g1", text:"Load GPSurgeries.xlsx into Power BI via Get Data → Transform Data."},
-        {id:"g2", text:"Have a look through in Power Query — there's something that needs cleaning before you use it."},
-        {id:"g3", text:"Once clean, Close & Apply."},
-        {id:"g4", text:"In Model view, connect SurgeryID from GP Surgeries to SurgeryID in Patients."},
-        {id:"g5", text:"Add Borough as a slicer on your report. See how your bar chart updates? That's the relationship working."},
-      ]},
-
-      {type:"bonus", title:"⭐ Bonus Challenge — Full Name & Title in Power Query", tasks:[
-        {id:"b4_1", text:"In Power Query on the Patients table, add a Custom Column called FullName. Formula: [FirstName] & \" \" & [LastName]. This merges both name columns into one."},
-        {id:"b4_2", text:"Add a Conditional Column called Title. If Gender = Male → Mr, if Gender = Female → Ms, otherwise → —. This mirrors what you did in Excel but now it\'s repeatable on every refresh."},
-        {id:"b4_3", text:"Now add a DisplayName column that combines Title and FullName — e.g. \"Ms Sophie Clarke\". Formula: [Title] & \" \" & [FullName]."},
-        {id:"b4_4", text:"Use DisplayName on a visual instead of FirstName. See how much cleaner it looks on a patient-level report?"},
-      ]},
-      {type:"resources", title:"Watch These", links:[
-        {label:"YouTube — Power BI Data Modelling & Relationships (Guy in a Cube)", url:"https://www.youtube.com/watch?v=MrLnibDCeQA", note:"Exactly what you're doing today"},
-        {label:"YouTube — Star Schema explained simply (SQLBI)", url:"https://www.youtube.com/watch?v=fpk2lqp2FfY", note:"10 mins — worth it for the concept"},
+      {type:"lesson", title:"Watch Second — Popular Visualisations", content:"With your model built, now watch this. It walks through the chart types you'll use constantly: stacked bar, stacked column, line, line + column, scatter, pie/donut, card and table. Keep this on hand as a reference.", video:{label:"Popular Visualizations in Power BI (Alex The Analyst)", url:"https://www.youtube.com/watch?v=3NV5Jtbhfcw", note:"Timestamps: 1:30 Stacked Bar, 3:00 Stacked Column, 5:12 Line, 7:30 Line+Column, 8:36 Scatter, 9:29 Pie/Donut, 11:08 Card, 12:21 Table"}},
+      {type:"lesson", title:"Chart Types — When to Use What", content:"Bar chart (horizontal) — great for comparing categories with long labels, like presenting problems or surgery names.\n\nColumn chart (vertical) — same idea but better when you want a left-to-right sense of progression, like months.\n\nLine chart — built for trends over time. Always put your date field on the X axis. This is the one place where order matters — Power BI needs to know your dates are continuous, not just categories.\n\nPie / Donut chart — only ever for proportion of a whole, like nationality split. Never use a pie chart to show change over time — that's what line charts are for. A pie chart with more than 5-6 slices becomes unreadable, so use it sparingly.\n\nScatter chart — shows the relationship between two numeric values, like PHQ-9 score vs GAD-7 score per patient.\n\nCard — a single big number. Total Patients, Recovery Rate. You'll use these once you have measures, in a later day.",
+        callout:"Rule of thumb: if you're showing a trend over time, use a line chart. If you're comparing categories, use a bar or column chart. If you're showing parts of a whole, use a pie chart — but only with a handful of categories."},
+      {type:"lesson", title:"Table vs Matrix", content:"A Table shows your data in flat rows and columns — like Excel. Good for a detailed list, e.g. every patient and their referral date.\n\nA Matrix is more like a Pivot Table — it lets you put one field on rows and another on columns, and it shows you a cross-tab. For example: Presenting Problem on rows, Nationality on columns, and Count of Patients in the values. This is brilliant for spotting patterns a simple bar chart would hide — like whether a particular nationality is more associated with one presenting problem than another.\n\nUse a Table when you want a clean list. Use a Matrix when you want to cross-reference two categories against each other.",
+        callout:"You'll build one of each today so you can feel the difference yourself."},
+      {type:"lesson", title:"X and Y Axis — Plotting Dates Correctly", content:"On any chart with two axes, the X axis (horizontal) is usually your category or time field — like Month, or Presenting Problem. The Y axis (vertical) is usually your number — Count of Patients, Average Score.\n\nWhen plotting dates specifically: always make sure Power BI recognises the column as a proper Date type (you did this back in Power Query already). If a date column is still text, Power BI will often sort it alphabetically rather than chronologically — March would come before January. That's an easy and very common mistake to spot and fix."},
+      {type:"tasks", title:"Build Your First 5 Visuals", tasks:[
+        {id:"v1", text:"PIE CHART — drag PresentingProblem onto a pie chart. This shows you the proportion of each presenting problem across all patients."},
+        {id:"v2", text:"BAR CHART — drag Nationality onto a bar chart with Count of PatientID. Compare how it reads next to the pie chart."},
+        {id:"v3", text:"LINE CHART — drag ReferralDate onto the X axis and Count of PatientID onto the Y axis. Check Power BI is reading ReferralDate as a continuous date, not sorting it as text."},
+        {id:"v4", text:"TABLE — add a table visual with PatientID, FullName (or FirstName + LastName), PresentingProblem and ReferralDate. This is your detail view."},
+        {id:"v5", text:"MATRIX — add a matrix with PresentingProblem on rows, Nationality on columns, and Count of PatientID in values. Look for any patterns. Does anything stand out?"},
+        {id:"v6", text:"No KPI cards yet — those need measures, which comes in a later day. For now, this is purely visual practice."},
       ]},
       {type:"quiz", questions:[
-        {q:"In your star schema, which table sits at the centre?", options:["Sessions","Outcomes","Patients","GP Surgeries"], answer:2, explanation:"Patients is the hub. Every other table connects to it via PatientID or SurgeryID."},
-        {q:"You draw a relationship between Patients and Sessions. Which side is 'one' and which is 'many'?", options:["Sessions is one, Patients is many","Patients is one, Sessions is many","Both are one","Both are many"], answer:1, explanation:"One patient can have many sessions — Patients is the 'one' side, Sessions is the 'many' side."},
-        {q:"After connecting GP Surgeries to Patients, you add Borough as a slicer. How does Power BI know which patients belong to which borough?", options:["You manually map them","Power BI guesses based on postcode","It follows the relationship — Borough is on GP Surgeries, connected to Patients via SurgeryID","You write a formula"], answer:2, explanation:"The relationship does the work. Filter by Borough → passes through to Patients via SurgeryID → flows to Sessions and Outcomes."},
+        {q:"You want to show how referrals have changed month by month over the year. Which chart type is correct?", options:["Pie chart","Line chart","Card","Matrix"], answer:1, explanation:"Line charts are built for trends over time. Pie charts show proportion of a whole at a single point in time, not change over time."},
+        {q:"You want to compare PresentingProblem against Nationality to see if any patterns exist between the two categories. What should you use?", options:["A pie chart","A line chart","A Matrix — Presenting Problem on rows, Nationality on columns","A card"], answer:2, explanation:"A Matrix lets you cross-reference two categorical fields against each other, like a pivot table. A pie or line chart can only really show one category at a time."},
+        {q:"Your ReferralDate column is showing on a line chart in alphabetical order rather than chronological order — March before January. What's the likely cause?", options:["The chart type is wrong","The column isn't recognised as a Date type — it's probably still Text","Power BI is broken","You need to use a Matrix instead"], answer:1, explanation:"If a date column is stored as Text, Power BI sorts it alphabetically. Go back to Power Query and confirm the column type is set to Date, not Text."},
+        {q:"Why shouldn't you use a pie chart to show 8 different presenting problems?", options:["Pie charts can only show 2 categories","Too many slices become hard to read and compare visually — a bar chart works better for many categories","Power BI doesn't allow more than 5 slices","Pie charts only work with numbers, not categories"], answer:1, explanation:"Pie charts are great for a handful of categories but become cluttered and hard to compare visually beyond 5-6 slices. A bar chart scales much better for more categories."},
       ]},
       {type:"hardquiz", questions:[
-        {q:"You try to connect Patients → Sessions but Power BI flags a 'many-to-many' warning. What most likely caused this?", options:["The tables are too large","There are duplicate PatientIDs in the Patients table — it's no longer a true one side","Sessions is the wrong table","The date column has errors"], answer:1, explanation:"If PatientID is duplicated in Patients, it's no longer a unique Primary Key — Power BI can't determine a clean 'one' side. This is exactly why removing that duplicate PAT-004 row mattered on Day 2."},
-        {q:"GP Surgeries has 5 rows (including the duplicate). After cleaning in Power Query you have 4 surgeries. Patients has 30 rows across 4 surgeries. What is the cardinality of the GP Surgeries → Patients relationship?", options:["One-to-one","Many-to-many","One-to-many (GP Surgeries is one)","One-to-many (Patients is one)"], answer:2, explanation:"One surgery links to many patients. GP Surgeries holds the Primary Key (SurgeryID) — that's the 'one' side. Patients holds SurgeryID as a Foreign Key — that's the 'many' side."},
+        {q:"You connect GP Surgeries to Patients via SurgeryID but Power BI shows a 'many-to-many' warning. Patients has 30 rows. What's the most likely cause given what you fixed earlier in the course?", options:["GP Surgeries has too many columns","There's a duplicate PatientID still in the Patients table breaking its uniqueness as the 'one' side","SurgeryID is the wrong data type","Power BI has a bug"], answer:1, explanation:"If a duplicate PatientID slipped through, Patients is no longer cleanly unique on its key, which can cascade into ambiguous relationships elsewhere in the model. Always double check your dimension tables are clean before connecting them."},
+        {q:"You build a Matrix with PresentingProblem on rows and Nationality on columns. One cell shows a count of 0. What does that tell you?", options:["The model is broken","No patients of that nationality have that presenting problem in the dataset — a genuinely useful absence to notice","You need to refresh the data","The relationship is many-to-many"], answer:1, explanation:"A 0 in a Matrix cell is real information — it tells you that combination simply doesn't occur in your data. Spotting absences like this is exactly the kind of pattern recognition a consultant gets paid to notice."},
+        {q:"Why are KPI cards intentionally left out of today's visuals even though they're the most common thing people picture on a dashboard?", options:["Cards are too hard to build","Cards typically display a measure (like Recovery Rate %) and you haven't learned to write measures yet", "Cards don't work with this dataset","Cards require a Date Table first"], answer:1, explanation:"A card usually shows a single calculated number — most often a DAX measure rather than a raw column. Since measures haven't been taught yet, building cards now would mean copying syntax without understanding it. Cards will make much more sense once you've covered measures."},
       ]},
     ],
   },
   {
-    id:5, date:"Mon 6 Jul", label:"Day 5", title:"Scores, Averages & Age Bands",
-    subtitle:"Wellbeing assessments, DAX basics & conditional columns", phase:"powerbi",
-    recap:"On Friday you built the star schema — Patients at the centre, Sessions, Outcomes and GP Surgeries connected. You built your first visuals and saw how filters flow through relationships. Today we add Wellbeing Assessments and start with DAX.",
+    id:5, label:"Day 5", title:"Merging Data & Calculated Columns",
+    subtitle:"What a merge actually is, the postcode merge, and some quick calculated column practice", phase:"powerbi",
+    recap:"Last time was a big one — dashboards explained, your full 4-table star schema connected, and your first 5 visuals built. Today is shorter and focused on one specific skill: merging. We'll round it off with a few calculated columns since today has a bit of room.",
     sections:[
-      {type:"intro", content:"The Wellbeing Assessment table is the most analytically interesting part of the dataset. Six scored questions per patient per wave — so you can look at average scores by surgery, by presenting problem, by age group, and track whether scores improved. This is where Power BI starts to feel genuinely powerful."},
-      {type:"tasks", title:"Load Wellbeing Assessments", tasks:[
-        {id:"w1", text:"Load WellbeingAssessments.xlsx via Get Data → Transform Data."},
-        {id:"w2", text:"Check the data types — the Q columns should be Whole Numbers. Fix any that aren't."},
-        {id:"w3", text:"There's something in this table that needs cleaning in Power Query — have a look and sort it."},
-        {id:"w4", text:"Close & Apply, then connect WellbeingAssessments to Patients via PatientID in Model view."},
+      {type:"intro", content:"Today you're learning a skill that's genuinely one of the most useful things in a consultant's toolkit — merging data. It's different to a relationship, and today you'll feel that difference for yourself. Then a few quick calculated columns to round things out."},
+      {type:"lesson", title:"Merge vs Relationship — What's the Difference?", content:"A relationship (what you built last time) is a live link between two tables. The tables stay separate, but Power BI knows how to connect them when you build a visual. Nothing gets copied — it's all done on the fly.\n\nA merge is different. A merge physically pulls columns from one table into another, creating a combined result. It's the Power Query equivalent of a VLOOKUP — you're looking up a value in one table and bringing it into another.\n\nYou'd use a relationship when you want two tables to stay separate but linked (like Patients and Sessions). You'd use a merge when you specifically want to enrich one table with extra columns from another — which is exactly what you're about to do with postcodes.", video:{label:"How To Easily Merge Tables With Power Query: VLOOKUP Alternative (Excel Campus)", url:"https://www.youtube.com/watch?v=73T7isNVH_w", note:"Watch this before starting — it explains merging in the exact terms you'll recognise from VLOOKUP."}},
+      {type:"lesson", title:"The Postcode Merge", content:"Your Patients table now has a Postcode column — things like 'SW16 7PQ'. On its own that's not very useful for reporting. But you've also been given a PostcodePrefixes.xlsx file that maps postcode prefixes (like 'SW16') to an AreaName and a Region (like 'London').\n\nThe problem: your Patients table has the full postcode including the space and suffix ('SW16 7PQ'), but PostcodePrefixes only has the prefix ('SW16'). You can't merge these directly — the values don't match. You need to extract just the prefix from Patients' Postcode column first, then merge on that.",
+        tip:"This is a genuinely realistic scenario. Real-world data almost never lines up perfectly for a merge on the first try — you'll usually need to clean or extract something first."},
+      {type:"tasks", title:"Postcode Merge — Step by Step", file:"PostcodePrefixes.xlsx", tasks:[
+        {id:"pm1", text:"Load PostcodePrefixes.xlsx into Power BI via Get Data → Transform Data."},
+        {id:"pm2", text:"In the Patients query, add a Custom Column called PostcodePrefix. Use Text.BeforeDelimiter([Postcode], \" \") to grab everything before the space — e.g. 'SW16 7PQ' becomes 'SW16'."},
+        {id:"pm3", text:"Check your new PostcodePrefix column against the PostcodePrefix column in PostcodePrefixes.xlsx — do the values now match?"},
+        {id:"pm4", text:"On the Patients query, go to Home → Merge Queries. Select PostcodePrefixes as the table to merge, and match on PostcodePrefix in both tables."},
+        {id:"pm5", text:"Use a Left Outer join — this keeps every patient even if a postcode prefix doesn't match anything (worth checking if any don't)."},
+        {id:"pm6", text:"Expand the merged column and select just Region (and AreaName if you want it). Untick 'Use original column name as prefix' so the new column is just called Region."},
+        {id:"pm7", text:"Close & Apply. You now have a Region column on your Patients table, sourced entirely from a separate file."},
       ]},
-      {type:"lesson", title:"DAX — Your First Measures", content:"DAX (Data Analysis Expressions) is the formula language in Power BI. Two things you can create:\n\nA Calculated Column adds a new column to a table, row by row. Like adding a formula column in Excel.\n\nA Measure calculates dynamically based on what's selected on the report — it responds to filters and slicers. Measures are what make Power BI smart.",
+      {type:"tasks", title:"Second Merge — Extra Practice", tasks:[
+        {id:"pm8", text:"For a second rep at this skill: in your Sessions table, you have a TherapistName column but no extra detail about each therapist. Create a small reference table yourself in Excel with two columns — TherapistName and a made-up TherapistRole (e.g. 'Senior PWP', 'Trainee PWP') for each of the four therapists (Dr. Lena Marsh, Solomon Attah, Berivan Sahin, Sarah Obi)."},
+        {id:"pm9", text:"Load this new table into Power BI and merge it onto Sessions using TherapistName as the matching column."},
+        {id:"pm10", text:"Notice anything tricky? If 'Soloman Attah' (the typo) wasn't fully cleaned earlier, the merge would miss those rows. This is exactly why cleaning early matters — a merge is only as good as the columns you're matching on."},
+      ]},
+      {type:"lesson", title:"Calculated Columns — Using the New DateOfBirth Field", content:"Quick one to round off today. Your Patients table now has a DateOfBirth column. These are all calculated columns in Power Query — row by row, just like you've practised before."},
+      {type:"tasks", title:"Calculated Columns Practice", file:"Patients_1.xlsx", tasks:[
+        {id:"c1", text:"In Power Query, add a Custom Column called MonthsOld using Duration.TotalDays and dividing by ~30, or use DateTime.LocalNow() compared to DateOfBirth. Don't worry about being exact — this is about practising the logic."},
+        {id:"c2", text:"Add a DaysOld column showing how many days old each patient is, using the difference between today and DateOfBirth."},
+        {id:"c3", text:"For a bit of fun: add a DaysTilRetirement column, assuming retirement age is 67. Calculate DateOfBirth + 67 years, then the number of days between that date and today."},
+        {id:"c4", text:"Try one more calculated column of your own choosing using the new fields (DateOfBirth, Email, Postcode, Region). What else could be useful to calculate?"},
+      ]},
+      {type:"resources", title:"Watch These", links:[
+        {label:"How To Easily Merge Tables With Power Query: VLOOKUP Alternative (Excel Campus)", url:"https://www.youtube.com/watch?v=73T7isNVH_w", note:"The main video for today — clear and beginner-friendly"},
+      ]},
+      {type:"quiz", questions:[
+        {q:"What's the key difference between a relationship and a merge?", options:["There is no real difference", "A relationship links two tables live without copying data; a merge physically pulls columns from one table into another", "A merge is only for dates", "A relationship only works with one table"], answer:1, explanation:"A relationship keeps tables separate but linked behind the scenes. A merge combines columns from one table directly into another, creating a new enriched result."},
+        {q:"Patients has Postcode = 'SW16 7PQ'. PostcodePrefixes has PostcodePrefix = 'SW16'. Why can't you merge these two columns directly?", options:["They're different data types","The values don't match exactly — one has extra characters the other doesn't","Power Query doesn't support postcodes","You need a relationship instead"], answer:1, explanation:"A merge needs matching values on both sides. 'SW16 7PQ' and 'SW16' are not identical, so you first need to extract just the prefix from Patients before the merge will work."},
+        {q:"Which join type should you use for the postcode merge so that no patients are accidentally dropped from the table?", options:["Inner join", "Left Outer join — keeps every row from Patients regardless of a match","Right Outer join","Full Outer join"], answer:1, explanation:"A Left Outer join keeps every row from your primary table (Patients) and brings in matching data where it exists. An Inner join would silently drop any patient whose postcode prefix didn't match — risky."},
+      ]},
+      {type:"hardquiz", questions:[
+        {q:"After your postcode merge, three patients show a blank Region. What does this most likely mean?", options:["The merge failed completely","Their postcode prefix doesn't exist in PostcodePrefixes.xlsx — the lookup table doesn't cover every possible prefix","Power BI has a bug","You used the wrong join type"], answer:1, explanation:"A blank after a Left Outer join means no match was found — in this case the postcode prefix simply isn't in your reference table. This is common in real consultancy work; reference tables are rarely 100% complete and you'd flag this to a client."},
+        {q:"Your second merge (TherapistName) silently drops Solomon Attah's session rows where the name was typed 'Soloman Attah'. What's the underlying lesson here?", options:["Merges are unreliable and shouldn't be used","A merge is only as accurate as the exactness of the values you're matching on — inconsistent text breaks it silently with no error message","You need a relationship instead of a merge","TherapistName should be a number, not text"], answer:1, explanation:"This is one of the most important lessons in data work: a merge won't throw an error for a near-miss like 'Soloman' vs 'Solomon' — it just won't match, and the row quietly gets a blank. This is exactly why cleaning text columns early protects everything you build later."},
+        {q:"Why would a consultant generally prefer a relationship over a merge when connecting Patients to Sessions, but prefer a merge for bringing in Region from postcodes?", options:["Merges are always better","Relationships keep large fact tables (like Sessions) efficient and dynamic; merges suit smaller reference enrichments where you just want extra descriptive columns added once", "It doesn't matter which you use","Merges are required for any table over 20 rows"], answer:1, explanation:"Relationships are efficient for connecting tables that stay large and central to your model — you don't want to physically duplicate Sessions data into Patients. Merges suit smaller, descriptive enrichments like adding a Region label, where you genuinely just want a new column added permanently."},
+      ]},
+    ],
+  },
+  {
+    id:6, label:"Day 6", title:"Measures",
+    subtitle:"DAX measures — the smart, dynamic calculations that make Power BI powerful", phase:"powerbi",
+    recap:"Yesterday you learned to merge — postcodes into Region, plus a second practice merge on therapists. You now understand the difference between a relationship and a merge. Today is all about measures.",
+    sections:[
+      {type:"intro", content:"Today is one of the most important days in the whole course. Measures are what separate a Power BI report that just displays data from one that actually answers questions dynamically. Once you can write measures confidently, you can build almost anything."},
+      {type:"lesson", title:"Calculated Column vs Measure — Quick Recap", content:"You've already written calculated columns (MonthsOld, DaysOld, DaysTilRetirement on Day 4) — these calculate row by row and live permanently in the table.\n\nA Measure is different. It doesn't calculate row by row — it calculates based on whatever is currently selected on the report. Change a slicer, and the measure recalculates instantly. This is what makes Power BI feel 'alive' compared to a static spreadsheet.",
+        video:{label:"DAX Measures vs Calculated Columns (Guy in a Cube)", url:"https://www.youtube.com/watch?v=53RFhSzBBi8", note:"The single most important distinction in Power BI — watch this before writing your first measure today."}},
+      {type:"lesson", title:"Your First Measures", content:"Measures are written in DAX. The basic pattern for most simple measures is an aggregation function wrapped around a column:",
         daxExamples:[
-          {name:"Total Wellbeing Score", formula:"Total Score = SUM(WellbeingAssessments[Q1_Cope]) + SUM(WellbeingAssessments[Q2_Connected]) + SUM(WellbeingAssessments[Q3_Optimistic]) + SUM(WellbeingAssessments[Q4_Sleep]) + SUM(WellbeingAssessments[Q5_Stress]) + SUM(WellbeingAssessments[Q6_Mood])", note:"Adds up all six question scores"},
-          {name:"Avg Cope Score", formula:"Avg Cope = AVERAGE(WellbeingAssessments[Q1_Cope])", note:"Start simple — average of one question. Then try all six."},
-          {name:"Patient Count", formula:"Patient Count = COUNTROWS(Patients)", note:"Counts all patients — try this as a card visual"},
+          {name:"Youngest Patient", formula:"Youngest Patient = MIN(Patients[DateOfBirth])", note:"MIN finds the earliest date — meaning the most recently born, i.e. youngest patient"},
+          {name:"Oldest Patient", formula:"Oldest Patient = MAX(Patients[DateOfBirth])", note:"MAX finds the earliest-born, i.e. oldest patient"},
+          {name:"Average Age at Referral", formula:"Avg Age at Referral = AVERAGE(Patients[Age])", note:"Simple average across the Age column"},
+          {name:"Total Patients", formula:"Total Patients = COUNTROWS(Patients)", note:"Counts every row in the Patients table — try this on a card visual"},
         ],
       },
-      {type:"lesson", title:"Age Banding — Conditional Column", content:"The Patients table has individual ages. For reporting you want age groups. Go back into Power Query (Home → Transform Data), select Patients, then Add Column → Conditional Column:\n\n• If Age <= 25 → '18–25'\n• If Age <= 35 → '26–35'\n• If Age <= 50 → '36–50'\n• Otherwise → '51+'\n\nClose & Apply, then use AgeBand as an axis on a chart.",
-        tip:"Age bands are one of the most common things a consultant adds to a dataset. You'll do this in almost every health or HR dataset you work with."},
-
-      {type:"bonus", title:"⭐ Bonus Challenge — SWITCH for Age Bands in DAX", tasks:[
-        {id:"b5_1", text:"You built age bands in Power Query using a Conditional Column. Now try doing the same thing in DAX using SWITCH. In the Patients table, add a New Column:\nAgeBandDAX = SWITCH(TRUE(), Patients[Age] <= 25, \"18-25\", Patients[Age] <= 35, \"26-35\", Patients[Age] <= 50, \"36-50\", \"51+\")"},
-        {id:"b5_2", text:"Compare AgeBandDAX to your Power Query AgeBand column — do they match? If not, why?"},
-        {id:"b5_3", text:"Which approach do you prefer and why? Think about the Power Query one updating automatically on refresh vs the DAX one being in the model. Discuss with Sol."},
+      {type:"lesson", title:"A Measure That Uses Other Measures", content:"This is where it gets clever. A measure can reference other measures you've already built, rather than going back to the raw column every time.",
+        daxExamples:[
+          {name:"Age Range (Days)", formula:"Age Range Days = DATEDIFF([Youngest Patient], [Oldest Patient], DAY)", note:"DATEDIFF calculates the day difference between your two existing measures — notice it references [Youngest Patient] and [Oldest Patient] in square brackets rather than rewriting the MIN/MAX logic again"},
+          {name:"Total Patients by Region", formula:"Region Patients = CALCULATE(COUNTROWS(Patients), ALLEXCEPT(Patients, Patients[Region]))", note:"Counts patients but keeps the Region context — try this in a table with Region on rows"},
+          {name:"Count by Title", formula:"Mr Count = CALCULATE(COUNTROWS(Patients), Patients[Title] = \"Mr\")", note:"Counts how many patients have Title = Mr, using your Title column from the merge work earlier"},
+        ],
+      },
+      {type:"tasks", title:"Build These Measures", tasks:[
+        {id:"me1", text:"Create the Youngest Patient measure. Put it on a card. What date shows?"},
+        {id:"me2", text:"Create the Oldest Patient measure. Put it on a second card next to the first."},
+        {id:"me3", text:"Create the Age Range (Days) measure using DATEDIFF referencing your two new measures."},
+        {id:"me4", text:"Create the Average Age at Referral measure. Format it to show 1 decimal place."},
+        {id:"me5", text:"Create the Total Patients by Region measure. Build a simple table or bar chart with Region on rows to see it in action."},
+        {id:"me6", text:"Create a Ms Count measure as well as Mr Count, using your Title column. Do the numbers add up to your Total Patients measure?"},
+        {id:"me7", text:"Try writing one measure entirely on your own using a column you haven't used yet. What question are you trying to answer with it?"},
       ]},
       {type:"resources", title:"Watch These", links:[
-        {label:"YouTube — DAX Measures vs Calculated Columns (Guy in a Cube)", url:"https://www.youtube.com/watch?v=53RFhSzBBi8", note:"The most important distinction in Power BI"},
-        {label:"YouTube — Conditional Columns in Power Query (Wyn Hopkins)", url:"https://www.youtube.com/watch?v=JTKMbSGSlhc", note:"Quick and practical"},
+        {label:"DAX Measures vs Calculated Columns (Guy in a Cube)", url:"https://www.youtube.com/watch?v=53RFhSzBBi8", note:"Watch first — sets up everything else today"},
       ]},
       {type:"quiz", questions:[
-        {q:"What's the difference between a Calculated Column and a Measure?", options:["No real difference","A Calculated Column adds a row-by-row column; a Measure calculates dynamically based on filters","Measures are faster to write","Calculated Columns only work in Excel"], answer:1, explanation:"Calculated Columns are static — they live in the table. Measures are dynamic — they respond to slicers, filters and visual context."},
-        {q:"You want to show average wellbeing score filtered by Borough. Use a Calculated Column or Measure?", options:["Calculated Column","Measure","Either","Neither — use Power Query"], answer:1, explanation:"You need a Measure — it needs to respond dynamically to whichever Borough is selected."},
+        {q:"What's the core difference between a calculated column and a measure?", options:["No real difference", "A calculated column computes row by row and lives in the table permanently; a measure computes dynamically based on filters and slicers", "Measures are always slower", "Calculated columns only work with text"], answer:1, explanation:"This is the single most important distinction in Power BI. Calculated columns are static and stored. Measures are dynamic and respond to whatever context the report is currently showing."},
+        {q:"You write Youngest Patient = MIN(Patients[DateOfBirth]). Why does MIN give you the youngest patient rather than the oldest?", options:["MIN always returns the oldest","A later date of birth means a more recently born, younger patient — MIN finds the latest (largest) date among dates of birth, so it naturally returns the youngest","It's a Power BI quirk with no logical reason","MIN doesn't work on dates"], answer:1, explanation:"This catches people out. A more recent date of birth (e.g. 2005) is actually a larger value than an older one (e.g. 1970) when comparing dates numerically. So MIN(DateOfBirth) returns the earliest calendar date typically, but practically the right function depends on framing — always sanity check your output rather than assuming."},
+        {q:"Your Age Range Days measure references [Youngest Patient] and [Oldest Patient] using square brackets instead of rewriting MIN and MAX again. Why is this good practice?", options:["It's required syntax and has no real benefit","It keeps your DAX clean and means if you ever change how Youngest Patient is calculated, Age Range Days updates automatically too", "Square brackets make it calculate faster","It's the only way DAX allows date comparisons"], answer:1, explanation:"Referencing existing measures inside new measures avoids duplicating logic. If you ever refine the Youngest Patient measure, every measure built on top of it inherits that fix automatically — exactly the kind of repeatable, maintainable approach a consultant builds models with."},
       ]},
       {type:"hardquiz", questions:[
-        {q:"You create a measure: Avg Score = AVERAGE(WellbeingAssessments[Q1_Cope]). You put it in a visual filtered to Wave 1 only. What does the measure calculate?", options:["The average Q1 score across all waves regardless of the filter","The average Q1 score for Wave 1 rows only — the filter context changes what AVERAGE sees","It throws an error","The total, not the average"], answer:1, explanation:"This is filter context in action. When Wave 1 is selected, Power BI passes that filter to the measure — AVERAGE only sees Wave 1 rows. This is why measures are more powerful than calculated columns."},
-        {q:"You want a measure showing the improvement in average score from Wave 1 to Wave 2. What's the right approach?", options:["Subtract two AVERAGE measures using CALCULATE to fix each to a wave","Use a Calculated Column","Export to Excel and calculate there","Filter the visual to both waves and use a line chart"], answer:0, explanation:"You'd write: Wave1 Avg = CALCULATE(AVERAGE(...), WellbeingAssessments[Wave] = 'Wave 1') and Wave2 Avg similarly, then Improvement = [Wave2 Avg] - [Wave1 Avg]. CALCULATE lets you override the filter context per measure."},
-        {q:"A patient's age is stored as 'thirty two' (text) in the Patients table. You create an age band conditional column. What happens to this patient's age band?", options:["They get assigned to '26-35' correctly","Power Query throws an error and stops","They get assigned to 'null' or an error value because the condition compares text to a number","They appear in '51+' by default"], answer:2, explanation:"The conditional column compares Age <= 25, Age <= 35 etc — but 'thirty two' is text, not a number. The comparison fails and the row gets null or an error. This is exactly why fixing the age text entries in Excel first was important."},
+        {q:"You build Total Patients by Region using CALCULATE and ALLEXCEPT. A board member filters the report to Low Mood only. What does the measure now show?", options:["Total patients across all problems, ignoring the Low Mood filter","Total patients with Low Mood, broken down by Region — both filters apply together","An error, because ALLEXCEPT conflicts with slicers","Zero, because ALLEXCEPT removes all filters"], answer:1, explanation:"ALLEXCEPT(Patients, Patients[Region]) removes all filters on the Patients table except Region — meaning Region context is preserved while other filters like PresentingProblem still apply on top. So you'd see Low Mood patients broken down by Region."},
+        {q:"You create a Mr Count and Ms Count measure. They don't add up to Total Patients. What's the most likely cause given what you know about the Gender column from Day 2?", options:["The measures have a bug","Some Gender values were still inconsistent ('female' lowercase, 'M' instead of 'Male') before the Title column was generated, so some patients got no Title assigned","CALCULATE can't count correctly","Title isn't a real column"], answer:1, explanation:"If the Title formula was IF(Gender=\"Male\",\"Mr\",IF(Gender=\"Female\",\"Ms\")) and Gender had inconsistent casing or values like 'M' or 'female', some rows would get neither Mr nor Ms — a genuinely useful discovery that traces back to a Day 2 cleaning task."},
+        {q:"Why might a consultant prefer writing Region Patients as a measure rather than just adding a Region slicer and looking at the visual's total?", options:["Measures look more professional but do the same thing","A measure can be reused across multiple visuals, combined with other measures, and referenced inside more complex calculations — a slicer only filters what's already there", "Slicers don't work with merged columns","There's no real difference"], answer:1, explanation:"A measure is a reusable building block — you can drop it into a card, a table, a chart, or use it inside another measure. A slicer just filters whatever's already on the page. Measures are the foundation that makes a model genuinely scalable for a client who'll want new visuals added later."},
       ]},
     ],
   },
   {
-    id:6, date:"Tue 7 Jul", label:"Day 6", title:"New Data Arrives",
-    subtitle:"Append, prefix cleaning & seeing the refresh work", phase:"powerbi",
-    recap:"Yesterday you added the Wellbeing Assessment table, created your first DAX measures and built age bands. Today you see one of the most satisfying things Power BI can do — handle new data automatically.",
+    id:7, label:"Day 7", title:"Building a Real Report",
+    subtitle:"Design, layout, KPIs and a patient drillthrough page", phase:"powerbi",
+    recap:"Yesterday you wrote your first measures — Youngest Patient, Oldest Patient, Age Range, Total Patients by Region. You now have real building blocks. Today is about turning your model into something a stakeholder would actually want to look at.",
     sections:[
-      {type:"intro", content:"In the real world, data doesn't arrive once and stay still. New sessions get logged every week. Today you're getting a second batch of Sessions data — but it's got a problem. The Patient IDs use a different prefix. You'll fix it in Power Query, append it to your existing Sessions, then hit refresh and watch the row count go up."},
-      {type:"lesson", title:"The Prefix Problem", content:"Your original Sessions data uses PAT-001 for Patient IDs. The new batch uses P001. They're the same patients — just formatted differently.\n\nIf you append without fixing this, Power BI won't match sessions to patients. PAT-001 and P001 look like different values even though they're not.",
+      {type:"intro", content:"Data without design is just numbers. Today you're going to think about how to lay out a report so it tells a story — what someone needs to see first, what's supporting detail, what they can filter. This is the bit consultants get paid for. And now that you have measures, your KPI cards finally make sense."},
+      {type:"lesson", title:"Report Design Principles", content:"Top left = most important. People read left to right, top to bottom. KPI cards go top left.\n\nLimit your colour palette. Pick two or three colours and stick to them. Colour should mean something.\n\nEvery visual needs a clear question it's answering. If you can't name the question, cut the chart.\n\nSlicers go on the left or top — always in the same place.\n\nWhite space is not wasted space."},
+      {type:"lesson", title:"More DAX — CALCULATE for Rates", content:"To build proper KPIs you'll need a couple more measures using CALCULATE — the most important function in DAX. It lets you change the filter context to calculate something under specific conditions.",
+        daxExamples:[
+          {name:"Recovery Rate", formula:`Recovery Rate = DIVIDE(CALCULATE(COUNTROWS(Outcomes), Outcomes[RecoveryStatus] = "Recovered"), COUNTROWS(Outcomes))`, note:"DIVIDE handles divide-by-zero automatically — always prefer it over a plain / in DAX"},
+          {name:"DNA Rate", formula:`DNA Rate = DIVIDE(CALCULATE(COUNTROWS(Sessions), Sessions[Attendance] = "DNA"), COUNTROWS(Sessions))`, note:"What percentage of sessions were Did Not Attend"},
+        ],
+      },
+      {type:"tasks", title:"Build Your Dashboard Page", tasks:[
+        {id:"r1", text:"Add a title: 'Talking Therapies Service — Overview'"},
+        {id:"r2", text:"Build the Recovery Rate and DNA Rate measures above, then add three KPI cards: Total Patients, Recovery Rate, DNA Rate."},
+        {id:"r3", text:"Add your Pie, Bar, Line, Table and Matrix visuals from Day 4 onto this page, or rebuild them here if you want a fresh layout."},
+        {id:"r4", text:"Add a slicer for Nationality — filter by British, Turkish, Nigerian etc, and watch your KPI cards update live."},
+        {id:"r5", text:"Add a slicer for Region — using the Region field from your postcode merge."},
+        {id:"r6", text:"Format everything — consistent fonts, remove gridlines, background colour on KPI cards."},
+        {id:"r7", text:"Step back and ask: could a manager who knows nothing about this data understand this in 30 seconds?"},
+      ]},
+      {type:"drillthrough"},
+      {type:"resources", title:"Watch These", links:[
+        {label:"YouTube — Power BI Drillthrough Pages (Guy in a Cube)", url:"https://www.youtube.com/watch?v=2v8DmFkL6jU", note:"Exactly what you're building today"},
+        {label:"YouTube — Power BI Report Design Tips (Guy in a Cube)", url:"https://www.youtube.com/watch?v=7BtwqKVFmWE", note:"Practical design tips from real client reports"},
+      ]},
+      {type:"quiz", questions:[
+        {q:"Why do your KPI cards finally make sense today but not on Day 4?", options:["Cards are a new feature unlocked today","Cards typically display measures, and you only learned to write measures on Day 6", "Cards require a drillthrough page first","Cards only work with merged data"], answer:1, explanation:"A card needs a single calculated value to display — almost always a measure like Recovery Rate or Total Patients. Without measures, you'd have nothing meaningful to put on a card."},
+        {q:"You add a Nationality slicer to your dashboard page and select Turkish. What happens to your Recovery Rate card?", options:["Nothing — cards don't respond to slicers","It recalculates to show the recovery rate for Turkish patients only", "It shows an error","It resets to 0"], answer:1, explanation:"This is the whole point of measures — they're dynamic. The Recovery Rate measure recalculates using whatever filter context is active, including any slicer selections."},
+      ]},
+      {type:"hardquiz", questions:[
+        {q:"You set up a drillthrough page on Patient ID. A manager right-clicks on Sophie Clarke's bar in a visual and drills through. What does the drillthrough page show?", options:["All patients in Sophie's borough","All patients with Low Mood","Only data related to PAT-001 — Sophie's sessions, scores and outcome","The GP Surgery table"], answer:2, explanation:"Drillthrough passes the selected value (PAT-001) as a filter to the detail page. Every visual on that page is scoped to Sophie's data only — her sessions, her assessment scores, her outcome. This is the patient profile view."},
+        {q:"A consultant presents this report to a board. One member asks 'what's the recovery rate for Somali patients specifically?' You haven't built that view. What's the quickest way to answer live?", options:["Tell them you'll follow up","Use the Nationality slicer on the main page to filter to Somali — the Recovery Rate card updates instantly","Build a new page on the spot","Export to Excel and calculate"], answer:1, explanation:"This is the whole point of dynamic measures. The Recovery Rate measure responds to any filter — select Somali in the Nationality slicer and the card recalculates immediately. No new visuals needed. This is what impresses clients."},
+      ]},
+    ],
+  },
+  {
+    id:8, label:"Day 8", title:"Mini Project Begins",
+    subtitle:"New data, append practice, and your project brief", phase:"project",
+    recap:"Yesterday you built a structured dashboard page — KPI cards using real measures, slicers that update everything live, and a patient drillthrough page. Today the mini project officially starts — and we're keeping it flexible from here so you can really build.",
+    sections:[
+      {type:"intro", content:"From today, the course gets more open-ended. You're building towards a final report rather than following a tight script. Today also brings in one more real-world scenario — new data arriving with a formatting problem — before you get your brief."},
+      {type:"lesson", title:"The Prefix Problem", content:"Your original Sessions data uses PAT-001 for Patient IDs. A new batch has just come in using P001 instead. They're the same patients — just formatted differently by whoever exported the data.\n\nIf you append without fixing this, Power BI won't match sessions to patients. PAT-001 and P001 look like different values even though they're not.",
         daxExamples:[
           {name:"Custom Column — fix prefix", formula:`= "PAT-" & Text.PadStart(Text.AfterDelimiter([PatientID], "P"), 3, "0")`, note:'Strips the "P" and rebuilds as "PAT-001" format. Focus on understanding what it does, not memorising the syntax.'},
         ],
@@ -337,112 +424,56 @@ const days = [
         {id:"a5", text:"Close & Apply. Check the row count in Table view — it should be higher than before."},
         {id:"a6", text:"Check a visual — does it update with the new data?"},
       ]},
-      {type:"lesson", title:"What Just Happened", content:"What you just did is exactly what a Power BI consultant sets up for a client. The source file updates, the client hits Refresh, and the dashboard updates — cleaning steps, appends, relationships and all. No manual work.",
-        tip:"In a real consultancy setup you'd connect to a SharePoint folder or database so even the file-dropping step is automated. That's the next level — but this is the concept."},
+      {type:"brief", title:"Your Mini Project Brief", content:`The Head of Talking Therapies wants a board-ready summary report. They've asked for:\n\n— An overview of patient referrals: how many, by presenting problem, and by Region.\n\n— Recovery and reliable improvement rates — overall and broken down by presenting problem.\n\n— DNA rates — are any presenting problems associated with higher drop-out?\n\n— Age data — Youngest, Oldest and Average Age at Referral on display somewhere sensible.\n\n— Nationality breakdown — is the service reaching a diverse population?\n\n— A patient profile drillthrough page accessible from any patient-level visual.\n\nThe report should be clean, professional and filterable by Nationality and Presenting Problem. It will be presented at a board meeting. You have the rest of the course to build it — work at your own pace from here.`},
+      {type:"tasks", title:"Get Started", tasks:[
+        {id:"mp1", text:"Read the brief properly before opening Power BI. Think about which visuals answer which question."},
+        {id:"mp2", text:"Plan your pages — you might want more than one. Maybe an Overview page and an Age/Demographics page."},
+        {id:"mp3", text:"Start building. Refer back to any previous day if you need a reminder on a technique."},
+      ]},
       {type:"resources", title:"Watch These", links:[
         {label:"YouTube — Append Queries in Power Query (Pragmatic Works)", url:"https://www.youtube.com/watch?v=2NNnLRPkG7w", note:"Covers exactly what you did today"},
-        {label:"YouTube — Power BI Refresh explained (Guy in a Cube)", url:"https://www.youtube.com/watch?v=TNirzFVeWKs", note:"Good context on how refresh works in practice"},
       ]},
       {type:"hardquiz", questions:[
-        {q:"After appending the new Sessions batch, you notice some PatientIDs in the new batch have no matching patient in the Patients table. What does this mean in your model?", options:["Power BI deletes those rows automatically","Those sessions become orphaned — they appear in Sessions but won't show in any visual filtered through Patients","The relationship breaks entirely","It causes a refresh error"], answer:1, explanation:"Orphaned rows — sessions with no matching PatientID in Patients — still exist in Sessions but won't join through to any patient-level data. They'd appear in a session count but not in a 'sessions by patient nationality' visual. Important to flag to the client."},
-        {q:"The prefix fix formula uses Text.PadStart(..., 3, '0'). What does the 3 and '0' do?", options:["Adds 3 zeros to the end","Pads the number to 3 characters wide using zeros — so '1' becomes '001'","Rounds to 3 decimal places","Limits text to 3 characters"], answer:1, explanation:"PadStart ensures the number part is always 3 digits — P1 becomes PAT-001, P23 becomes PAT-023. Without this, PAT-1 and PAT-01 and PAT-001 would all be treated as different IDs."},
-        {q:"You append the new batch but forget to fix the prefix first. You notice the mistake after clicking Close & Apply. What's the quickest fix?", options:["Delete everything and start again","Go back into Power Query, find the New Batch query, add the prefix fix step there, then re-run the append","Delete the Sessions table and reload it","Change the IDs manually in Table view"], answer:1, explanation:"Power Query is non-destructive. Go back in (Transform Data), find your new batch query, add the fix as a new Applied Step before the append, then Close & Apply again. The append re-runs with the fixed IDs."},
+        {q:"After appending the new Sessions batch, you notice some PatientIDs in the new batch have no matching patient in the Patients table. What does this mean in your model?", options:["Power BI deletes those rows automatically","Those sessions become orphaned — they appear in Sessions but won't show in any visual filtered through Patients","The relationship breaks entirely","It causes a refresh error"], answer:1, explanation:"Orphaned rows — sessions with no matching PatientID in Patients — still exist in Sessions but won't join through to any patient-level data. Important to flag to the client."},
+        {q:"The prefix fix formula uses Text.PadStart(..., 3, '0'). What does the 3 and '0' do?", options:["Adds 3 zeros to the end","Pads the number to 3 characters wide using zeros — so '1' becomes '001'","Rounds to 3 decimal places","Limits text to 3 characters"], answer:1, explanation:"PadStart ensures the number part is always 3 digits — P1 becomes PAT-001, P23 becomes PAT-023."},
       ]},
     ],
   },
   {
-    id:7, date:"Wed 8 Jul", label:"Day 7", title:"DAX — Going Deeper",
-    subtitle:"CALCULATE, FILTER & the Date Table", phase:"powerbi",
-    recap:"Yesterday you handled a real-world scenario — new data with mismatched IDs, fixed it in Power Query, appended and watched the data update. Today we go deeper into DAX.",
+    id:9, label:"Day 9", title:"Building Out the Project",
+    subtitle:"Keep building — refine, add detail, polish", phase:"project",
+    recap:"Yesterday the project began — you appended new session data and got your brief. Today is open building time. Keep working through the brief at your own pace.",
     sections:[
-      {type:"intro", content:"DAX is what separates a Power BI report that just shows data from one that actually answers questions. Today you're going to learn CALCULATE — the most important function in DAX — and a few patterns you'll use in almost every report you ever build."},
-      {type:"lesson", title:"CALCULATE", content:"CALCULATE is the engine behind almost every useful DAX measure. It lets you change the filter context — calculate something under specific conditions.\n\nCALCULATE([measure], filter1, filter2...)",
-        daxExamples:[
-          {name:"Low Mood Patients", formula:`Low Mood Count = CALCULATE(COUNTROWS(Patients), Patients[PresentingProblem] = "Low Mood")`, note:"Counts only Low Mood patients regardless of what's selected on the report"},
-          {name:"Recovery Rate", formula:`Recovery Rate = DIVIDE(CALCULATE(COUNTROWS(Outcomes), Outcomes[RecoveryStatus] = "Recovered"), COUNTROWS(Outcomes))`, note:"DIVIDE handles divide-by-zero automatically"},
-          {name:"DNA Rate", formula:`DNA Rate = DIVIDE(CALCULATE(COUNTROWS(Sessions), Sessions[Attendance] = "DNA"), COUNTROWS(Sessions))`, note:"What percentage of sessions were Did Not Attend"},
-        ],
-      },
-      {type:"lesson", title:"The Date Table", content:"A Date Table is a separate table containing every single date in a continuous range. Power BI needs this to do time intelligence properly — month-on-month comparisons, year-to-date totals.\n\nYou generate it automatically with DAX:",
-        daxExamples:[
-          {name:"Create Date Table", formula:"DateTable = CALENDAR(DATE(2024,1,1), DATE(2025,12,31))", note:"Paste this in Table Tools → New Table"},
-          {name:"Add Month Name", formula:`Month = FORMAT(DateTable[Date], "MMMM")`, note:"Add as a new column in your DateTable"},
-          {name:"Add Year", formula:"Year = YEAR(DateTable[Date])", note:"Simple year column — useful for slicers"},
-        ],
-        tip:"Connect your DateTable to Sessions[SessionDate] and Patients[ReferralDate]. Once connected, time-based slicers work properly across your whole model.",
-      },
-      {type:"tasks", title:"Build These Measures", tasks:[
-        {id:"d1", text:"Create the Low Mood Count measure and put it on a card visual."},
-        {id:"d2", text:"Create the Recovery Rate measure. Display it as a percentage."},
-        {id:"d3", text:"Create the DNA Rate measure. What's the DNA rate for your dataset?"},
-        {id:"d4", text:"Create your Date Table using the CALENDAR formula. Connect it to Sessions and Patients."},
-        {id:"d5", text:"Add a Month slicer to your report using your Date Table. Filter to a single month — do your measures update?"},
+      {type:"intro", content:"No new lessons today — just keep building against your brief from Day 8. Use this as a checkpoint to make sure you're covering everything asked for, and a chance to polish what you've already got."},
+      {type:"tasks", title:"Checkpoint Against the Brief", tasks:[
+        {id:"cp1", text:"Referrals overview by presenting problem and Region — built?"},
+        {id:"cp2", text:"Recovery and reliable improvement rates, overall and by presenting problem — built?"},
+        {id:"cp3", text:"DNA rate, broken down by presenting problem — built?"},
+        {id:"cp4", text:"Age data — Youngest, Oldest, Average Age at Referral — visible somewhere sensible?"},
+        {id:"cp5", text:"Nationality breakdown — built?"},
+        {id:"cp6", text:"Patient profile drillthrough page — working from at least one visual?"},
+        {id:"cp7", text:"Filters for Nationality and Presenting Problem — added and tested?"},
       ]},
-
-      {type:"bonus", title:"⭐ Bonus Challenge — Multi-Nationality Measures in DAX", tasks:[
-        {id:"b7_1", text:"Create a measure called Turkish + Nigerian Patients that counts patients from either nationality:\nTurkish + Nigerian = CALCULATE(COUNTROWS(Patients), Patients[Nationality] IN {\"Turkish\", \"Nigerian\"})\nThe IN operator is your OR logic in DAX."},
-        {id:"b7_2", text:"Create a measure for DNA Rate by Nationality. Put it in a table visual with Nationality on rows. Which nationality has the highest DNA rate?"},
-        {id:"b7_3", text:"Create a measure: Low Mood Female Count = CALCULATE(COUNTROWS(Patients), Patients[PresentingProblem] = \"Low Mood\", Patients[Gender] = \"Female\"). This is your COUNTIFS equivalent in DAX — stacking two filters inside CALCULATE."},
-      ]},
-      {type:"resources", title:"Watch These", links:[
-        {label:"YouTube — CALCULATE explained (Guy in a Cube)", url:"https://www.youtube.com/watch?v=Xz9MBFv4fac", note:"The best explanation of CALCULATE out there"},
-        {label:"YouTube — Date Tables in Power BI (SQLBI)", url:"https://www.youtube.com/watch?v=3_ORcKLBLeI", note:"SQLBI are the authority on DAX — this is the definitive date table video"},
-      ]},
-      {type:"hardquiz", questions:[
-        {q:"You write: Turkish Patients = CALCULATE(COUNTROWS(Patients), Patients[Nationality] = 'Turkish'). You place this on a card. Then you add a Borough slicer and select Lambeth. What does the card show?", options:["All Turkish patients regardless of borough","Only Turkish patients in Lambeth — the slicer filter compounds with CALCULATE's filter","An error — CALCULATE and slicers conflict","Zero — CALCULATE ignores all external filters"], answer:1, explanation:"CALCULATE adds to the existing filter context — it doesn't replace it. The slicer applies Lambeth first, then CALCULATE adds the Turkish filter on top. The card shows Turkish patients in Lambeth only."},
-        {q:"Why does Power BI recommend a separate Date Table rather than using dates directly from your Sessions table?", options:["Sessions dates take up too much memory","Sessions dates may have gaps (no sessions on weekends/holidays) — a Date Table is continuous and complete, which time intelligence functions require","It's just a style preference","Date columns in fact tables can't be used as slicers"], answer:1, explanation:"Time intelligence functions like DATESYTD, SAMEPERIODLASTYEAR etc require a contiguous, complete date table with no gaps. If you use SessionDate directly and there are no sessions on a given day, that date doesn't exist — breaking the time calculation."},
-        {q:"You calculate DNA Rate = 15%. You add a Nationality slicer and select Turkish. The DNA Rate card now shows 22%. What explains this?", options:["CALCULATE broke the filter","The measure is recalculating using only Turkish patients' sessions — a higher proportion of Turkish patients' sessions were DNA","It's a display error","The Date Table is causing interference"], answer:1, explanation:"Measures are dynamic. When Nationality = Turkish is applied, the COUNTROWS inside CALCULATE only counts Turkish patients' sessions. If Turkish patients happen to have a higher DNA rate, the percentage goes up. This is the insight — and exactly what makes Power BI useful for equity analysis in health services."},
-      ]},
+      {type:"lesson", title:"A Few Polish Ideas If You Have Time", content:"Tidy up your colour scheme so it's consistent across every page.\n\nCheck every visual still answers a clear question — if you've added something just because it looked nice, ask whether it earns its place.\n\nMake sure your page titles are clear and your slicers are in the same place on every page.\n\nIf you have extra time, try adding a second page entirely — perhaps an Age & Demographics page using your Region, Nationality and Age measures together."},
     ],
   },
   {
-    id:8, date:"Thu 9 Jul", label:"Day 8", title:"Building a Real Report",
-    subtitle:"Design, layout & telling a story with data", phase:"powerbi",
-    recap:"Yesterday you went deep into DAX — CALCULATE, Recovery Rate, DNA Rate, and the Date Table. You have a proper working model with real measures. Today is about turning that into something a stakeholder would actually read.",
+    id:10, label:"Day 10", title:"Final Polish & Wrap Up",
+    subtitle:"Finish strong — this is your first portfolio piece", phase:"project",
+    recap:"You've spent two days building against a real brief. Today is your final day before you start your new role tomorrow. Let's bring it home.",
     sections:[
-      {type:"intro", content:"Data without design is just numbers. Today you're going to think about how to lay out a report so it tells a story — what someone needs to see first, what's supporting detail, what they can filter. This is the bit consultants get paid for."},
-      {type:"lesson", title:"Report Design Principles", content:"Top left = most important. People read left to right, top to bottom. KPI cards go top left.\n\nLimit your colour palette. Pick two or three colours and stick to them. Colour should mean something.\n\nEvery visual needs a clear question it's answering. If you can't name the question, cut the chart.\n\nSlicers go on the left or top — always in the same place.\n\nWhite space is not wasted space."},
-      {type:"tasks", title:"Build Your Dashboard Page", tasks:[
-        {id:"r1", text:"Add a title: 'Talking Therapies Service — Overview'"},
-        {id:"r2", text:"Add three KPI cards: Total Patients, Recovery Rate, DNA Rate."},
-        {id:"r3", text:"Add a bar chart: Referrals by Presenting Problem."},
-        {id:"r4", text:"Add a bar chart: Average Wellbeing Score by Borough."},
-        {id:"r5", text:"Add a slicer for Month (using your Date Table)."},
-        {id:"r6", text:"Add a slicer for Nationality — filter by British, Turkish, Nigerian etc."},
-        {id:"r7", text:"Format everything — consistent fonts, remove gridlines, background on KPI cards."},
-        {id:"r8", text:"Step back and ask: could a manager who knows nothing about this data understand this in 30 seconds?"},
+      {type:"intro", content:"This is it — your last day. Today is about finishing properly, reviewing what you've built, and feeling proud of it. This report is your first real portfolio piece."},
+      {type:"tasks", title:"Final Tasks", tasks:[
+        {id:"f1", text:"Do one final pass against the brief from Day 8 — does the report answer every question they asked?"},
+        {id:"f2", text:"Check formatting one more time — gridlines, fonts, colours, alignment."},
+        {id:"f3", text:"Save your .pbix file somewhere safe. This is your first portfolio piece."},
+        {id:"f4", text:"Write yourself a couple of sentences on what each page of your report shows and why — practice explaining your own work, since that's the actual consultancy skill."},
       ]},
-      {type:"drillthrough"},
-      {type:"resources", title:"Watch These", links:[
-        {label:"YouTube — Power BI Drillthrough Pages (Guy in a Cube)", url:"https://www.youtube.com/watch?v=2v8DmFkL6jU", note:"Exactly what you're building today"},
-        {label:"YouTube — Power BI Report Design Tips (Guy in a Cube)", url:"https://www.youtube.com/watch?v=7BtwqKVFmWE", note:"Practical design tips from real client reports"},
-      ]},
+      {type:"lesson", title:"You Did It 🎉", content:"Genuinely — going from zero to a board-ready Power BI dashboard in two weeks, while working and starting something new, is impressive. Properly impressive.\n\nWhat you've covered: relational data modelling, Power Query cleaning, merging and relationships, star schema design, DAX measures, CALCULATE, drillthrough pages, report design and a real-world data scenario from start to finish. That's the core of what a Power BI consultant does.\n\nThe next step is practice on real or open datasets, and getting comfortable talking through what you built and why. That's the consultancy skill — not just building it, but explaining the decisions."},
       {type:"hardquiz", questions:[
-        {q:"You set up a drillthrough page on Patient ID. A manager right-clicks on Sophie Clarke's bar in a visual and drills through. What does the drillthrough page show?", options:["All patients in Sophie's borough","All patients with Low Mood","Only data related to PAT-001 — Sophie's sessions, scores and outcome","The GP Surgery table"], answer:2, explanation:"Drillthrough passes the selected value (PAT-001) as a filter to the detail page. Every visual on that page is scoped to Sophie's data only — her sessions, her assessment scores, her outcome. This is the patient profile view."},
-        {q:"You want the patient profile drillthrough page to show a flag emoji next to the patient's nationality. Where did that flag column need to be created?", options:["Directly in the visual formatting","As a DAX measure","As a Conditional Column in Power Query on the Patients table","In the source Excel file"], answer:2, explanation:"The cleanest approach is a Conditional Column in Power Query — IF Nationality = 'British' → '🇬🇧' etc. It becomes a proper column in the model that any visual on any page can use."},
-        {q:"A consultant presents this report to a board. One member asks 'what's the recovery rate for Somali patients specifically?' You haven't built that view. What's the quickest way to answer live?", options:["Tell them you'll follow up","Use the Nationality slicer on the main page to filter to Somali — the Recovery Rate card updates instantly","Build a new page on the spot","Export to Excel and calculate"], answer:1, explanation:"This is the whole point of dynamic measures. The Recovery Rate measure responds to any filter — select Somali in the Nationality slicer and the card recalculates immediately. No new visuals needed. This is what impresses clients."},
-      ]},
-    ],
-  },
-  {
-    id:9, date:"Fri 10 Jul", label:"Day 9", title:"Mini Project",
-    subtitle:"Build a board-ready report from a brief", phase:"project",
-    recap:"Yesterday you built a structured dashboard with KPIs, charts, slicers, formatting, and a patient drillthrough page. You're thinking about design as well as data now. Today is your final day — a proper test.",
-    sections:[
-      {type:"intro", content:"This is your mini project. You're going to build a report from a brief — the same way a consultant gets a request from a client. No step-by-step instructions this time. Use everything you've learned."},
-      {type:"brief", title:"The Brief", content:`The Head of Talking Therapies wants a board-ready summary report. They've asked for:\n\n— An overview of patient referrals: how many, by presenting problem, and by borough.\n\n— Recovery and reliable improvement rates — overall and broken down by presenting problem.\n\n— DNA rates — are any surgeries or presenting problems associated with higher drop-out?\n\n— Wellbeing score trends — how do Wave 1 and Wave 2 scores compare? Which presenting problem group shows the most improvement?\n\n— Age breakdown — what age bands make up the referral population?\n\n— Nationality breakdown — is the service reaching a diverse population?\n\n— A patient profile drillthrough page accessible from any patient-level visual.\n\nThe report should be clean, professional and filterable by month and presenting problem. It will be presented at a board meeting.`},
-      {type:"tasks", title:"Your Tasks", tasks:[
-        {id:"mp1", text:"Read the brief properly before you open Power BI. Think about which visuals answer which questions."},
-        {id:"mp2", text:"Plan your pages — you might want more than one. Maybe an Overview page and a Wellbeing Scores page."},
-        {id:"mp3", text:"Build the report. Refer back to previous days if you need a reminder."},
-        {id:"mp4", text:"When done, review it against the brief — does it answer every question they asked?"},
-        {id:"mp5", text:"Save your .pbix file. This is your first portfolio piece."},
-      ]},
-      {type:"lesson", title:"You Did It 🎉", content:"Going from zero to a board-ready Power BI dashboard in two weeks, while working and starting something new, is genuinely impressive.\n\nWhat you've covered: relational data modelling, Power Query cleaning, star schema design, DAX measures, date intelligence, drillthrough pages, report design and a real-world data scenario. That's the core of what a Power BI consultant does.\n\nThe next step is practice on real datasets, and getting comfortable talking through what you built and why. That's the consultancy skill — not just building it, but explaining the decisions."},
-      {type:"hardquiz", questions:[
-        {q:"A potential client asks 'can you connect Power BI to our live database rather than Excel files?' What's your honest answer based on what you now know?", options:["No — Power BI only works with Excel","Yes — Power BI can connect directly to SQL databases, SharePoint, APIs and more. The cleaning logic in Power Query works the same way regardless of source","Maybe — it depends on the version of Power BI","Only if they use Microsoft SQL Server"], answer:1, explanation:"Power BI supports hundreds of connectors — SQL Server, PostgreSQL, SharePoint, Salesforce, APIs and more. Everything you learned about Power Query, the model and DAX applies identically. The source just changes."},
-        {q:"A client wants to share the dashboard with their whole team so they can each see it on their laptops. What do they need?", options:["Everyone installs Power BI Desktop and you send the .pbix file","The report is published to Power BI Service (the web version) and shared via a workspace or app — viewers only need a browser and a Power BI Pro licence","You export it as a PDF monthly","They all need to install the same version of Excel"], answer:1, explanation:"Power BI Desktop is for building. Power BI Service (app.powerbi.com) is for sharing. You publish the .pbix, set up a scheduled refresh if needed, and share the link. Viewers don't need Desktop — just a browser and a licence."},
-        {q:"You notice that patients from Tower Hamlets (Deprivation Quintile 5 — most deprived) have a lower recovery rate than patients from Southwark (Quintile 2). A board member asks if this is statistically significant. What do you say?", options:["Yes — the chart clearly shows the difference","Power BI shows the pattern but can't determine statistical significance — you'd need a statistician or R/Python analysis to confirm whether the difference is meaningful or within expected variation","No — small datasets are always too noisy to draw conclusions","Tell them to look at the numbers themselves"], answer:1, explanation:"This is an important professional boundary. Power BI visualises patterns — it doesn't test significance. Presenting a chart as definitive without statistical testing is a risk. Being honest about this builds trust and is exactly the kind of nuanced thinking that makes a good consultant."},
+        {q:"A potential client asks 'can you connect Power BI to our live database rather than Excel files?' What's your honest answer based on what you now know?", options:["No — Power BI only works with Excel","Yes — Power BI can connect directly to SQL databases, SharePoint, APIs and more. The cleaning logic in Power Query works the same way regardless of source","Maybe — it depends on the version of Power BI","Only if they use Microsoft SQL Server"], answer:1, explanation:"Power BI supports hundreds of connectors. Everything you learned about Power Query, the model and DAX applies identically. The source just changes."},
+        {q:"A client wants to share the dashboard with their whole team so they can each see it on their laptops. What do they need?", options:["Everyone installs Power BI Desktop and you send the .pbix file","The report is published to Power BI Service and shared via a workspace — viewers only need a browser and a Power BI Pro licence","You export it as a PDF monthly","They all need to install the same version of Excel"], answer:1, explanation:"Power BI Desktop is for building. Power BI Service is for sharing. Viewers don't need Desktop — just a browser and a licence."},
+        {q:"You notice that patients from one Region have a lower recovery rate than another. A board member asks if this is statistically significant. What do you say?", options:["Yes — the chart clearly shows the difference","Power BI shows the pattern but can't determine statistical significance — you'd need a statistician or further analysis to confirm whether the difference is meaningful or within expected variation","No — small datasets are always too noisy to draw conclusions","Tell them to look at the numbers themselves"], answer:1, explanation:"Power BI visualises patterns — it doesn't test significance. Being honest about this builds trust and is exactly the kind of nuanced thinking that makes a good consultant."},
       ]},
     ],
   },
@@ -562,7 +593,7 @@ function StarDiagram() {
   return (
     <div style={{background:COLORS.bg,borderRadius:14,padding:24,margin:"16px 0",textAlign:"center"}}>
       <div style={{display:"flex",justifyContent:"center",alignItems:"center",flexWrap:"wrap",gap:8}}>
-        {["Sessions\n(Fact)","Outcomes","GP Surgeries","Wellbeing\nAssessments"].map((label,i)=>(
+        {["Sessions\n(Fact)","Outcomes","GP Surgeries"].map((label,i)=>(
           <div key={i} style={{display:"flex",flexDirection:i<2?"row":"row-reverse",alignItems:"center"}}>
             <div style={{background:COLORS.primaryLight,border:`2px solid ${COLORS.primary}`,borderRadius:10,padding:"8px 14px",fontSize:12,fontWeight:600,color:COLORS.primary,whiteSpace:"pre-line",textAlign:"center"}}>{label}</div>
             <div style={{width:32,height:2,background:COLORS.primary}}/>
@@ -839,6 +870,15 @@ function DayContent({day}) {
             )}
             {s.diagram&&<RelationshipDiagram/>}
             {s.starDiagram&&<StarDiagram/>}
+            {s.video&&(
+              <a href={s.video.url} target="_blank" rel="noreferrer" style={{display:"flex",alignItems:"flex-start",gap:12,background:"#1A1A2E",borderRadius:12,padding:"14px 16px",marginTop:14,textDecoration:"none"}}>
+                <span style={{fontSize:20,flexShrink:0}}>▶️</span>
+                <div>
+                  <div style={{fontWeight:600,color:"#9B8FFF",fontSize:14}}>{s.video.label}</div>
+                  {s.video.note&&<div style={{color:"#94A3B8",fontSize:12,marginTop:4,lineHeight:1.5}}>{s.video.note}</div>}
+                </div>
+              </a>
+            )}
             {s.daxExamples&&(
               <div style={{display:"flex",flexDirection:"column",gap:10,marginTop:14}}>
                 {s.daxExamples.map((d,di)=>(
@@ -890,7 +930,7 @@ export default function App() {
               <span style={{fontSize:28}}>🍓</span>
               <div>
                 <div style={{fontWeight:800,fontSize:20,color:"#fff",letterSpacing:"-0.5px"}}>Berry's Power BI Course</div>
-                <div style={{fontSize:13,color:"#d4876a",marginTop:2}}>29 Jun → 10 Jul · 1–2 hrs a day · You've got this 🧶</div>
+                <div style={{fontSize:13,color:"#d4876a",marginTop:2}}>10 weekdays · 1–2 hrs a day · You've got this 🧶</div>
               </div>
             </div>
             <button onClick={()=>setDark(d=>!d)} style={{background:"rgba(255,255,255,0.1)",border:"1.5px solid rgba(255,255,255,0.2)",borderRadius:20,padding:"6px 16px",cursor:"pointer",fontSize:13,fontWeight:600,color:"#fff",fontFamily:"inherit",transition:"all 0.2s"}}>
@@ -915,7 +955,6 @@ export default function App() {
               {days.map(d=>(
                 <button key={d.id} onClick={()=>setActiveTab(`day-${d.id}`)}
                   style={{background:activeTab===`day-${d.id}`?COLORS.primary:COLORS.card,border:`1.5px solid ${activeTab===`day-${d.id}`?COLORS.primary:COLORS.border}`,borderRadius:12,padding:"10px 12px",cursor:"pointer",textAlign:"left",fontFamily:"inherit",transition:"all 0.15s"}}>
-                  <div style={{fontSize:11,fontWeight:700,color:activeTab===`day-${d.id}`?"rgba(255,255,255,0.7)":COLORS.muted,marginBottom:2}}>{d.date}</div>
                   <div style={{fontSize:13,fontWeight:700,color:activeTab===`day-${d.id}`?"#fff":COLORS.text,lineHeight:1.3}}>{d.label}</div>
                   <div style={{marginTop:5,display:"inline-block",background:activeTab===`day-${d.id}`?"rgba(255,255,255,0.2)":COLORS.tag,borderRadius:6,padding:"2px 7px",fontSize:10,fontWeight:600,color:activeTab===`day-${d.id}`?"#fff":phaseColour(d.phase)}}>
                     {phaseLabel(d.phase)}
