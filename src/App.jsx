@@ -84,6 +84,64 @@ const PATIENTS = [
   },
 ];
 
+
+const allResources = [
+  {
+    category: "Data Fundamentals",
+    icon: "🗄️",
+    links: [
+      {label:"W3Schools — What is RDBMS?", url:"https://www.w3schools.com/mysql/mysql_rdbms.asp", note:"Quick read, the example tables are helpful — Day 1"},
+      {label:"W3Schools — Primary Keys", url:"https://www.w3schools.com/mysql/mysql_primarykey.asp", note:"3 min read — Day 1"},
+      {label:"W3Schools — Foreign Keys", url:"https://www.w3schools.com/mysql/mysql_foreignkey.asp", note:"3 min read — Day 1"},
+      {label:"YouTube — Database Relationships Explained (Lucidchart)", url:"https://www.youtube.com/watch?v=V5DyvUfsboA", note:"8 min — really clear visuals on one-to-many vs many-to-many — Day 1"},
+      {label:"YouTube — Primary & Foreign Keys (Socratica)", url:"https://www.youtube.com/watch?v=B5r8CcTUs5Y", note:"6 min — worth it just for the key explanation — Day 1"},
+    ],
+  },
+  {
+    category: "Excel",
+    icon: "📊",
+    links: [
+      {label:"Excel — Remove Duplicates (Microsoft Support)", url:"https://support.microsoft.com/en-us/office/find-and-remove-duplicates-00e35bea-b46a-4d5d-b28e-66a552dc138d", note:"If you need a reminder — Day 2"},
+      {label:"YouTube — COUNTIF explained in 5 mins (ExcelJet)", url:"https://www.youtube.com/watch?v=8OKFZ-IOdNc", note:"Handy for the comprehension questions — Day 2"},
+    ],
+  },
+  {
+    category: "Power Query & Data Loading",
+    icon: "⚙️",
+    links: [
+      {label:"YouTube — Power BI for Beginners: Getting Data (Guy in a Cube)", url:"https://www.youtube.com/watch?v=TmhQCQr_AbQ", note:"Start here for loading data — Day 3"},
+      {label:"YouTube — Power Query Full Tutorial (Pragmatic Works)", url:"https://www.youtube.com/watch?v=0aeZX1l4JT4", note:"Longer but covers everything you'll need — Day 3"},
+      {label:"How To Easily Merge Tables With Power Query: VLOOKUP Alternative (Excel Campus)", url:"https://www.youtube.com/watch?v=73T7isNVH_w", note:"The definitive merge video — Day 5"},
+      {label:"YouTube — Append Queries in Power Query (Pragmatic Works)", url:"https://www.youtube.com/watch?v=2NNnLRPkG7w", note:"Covers the new batch append exercise — Day 8"},
+    ],
+  },
+  {
+    category: "Data Modelling & Star Schema",
+    icon: "⭐",
+    links: [
+      {label:"Star Schema vs Snowflake Schema, Fact vs Dimension Table (codebasics)", url:"https://www.youtube.com/watch?v=hQvCOBv_-LE", note:"Watch before building your model — Day 4"},
+    ],
+  },
+  {
+    category: "Power BI Visuals & Dashboard Design",
+    icon: "📈",
+    links: [
+      {label:"Popular Visualizations in Power BI (Alex The Analyst)", url:"https://www.youtube.com/watch?v=3NV5Jtbhfcw", note:"Stacked bar, line, pie, scatter, card, table — with timestamps — Day 4"},
+      {label:"ZoomCharts — Power BI Dashboard Examples (Most Popular)", url:"https://zoomcharts.com/en/microsoft-power-bi-custom-visuals/dashboard-and-report-examples/?sort_by=most-popular&search_val=", note:"Browse real dashboards for layout inspiration — Day 4"},
+      {label:"DataCamp — Power BI Visuals Beginner Guide", url:"https://www.datacamp.com/tutorial/power-bi-visuals-beginner-guide", note:"Written guide covering all the main visual types — Day 4"},
+      {label:"YouTube — Power BI Drillthrough Pages (Guy in a Cube)", url:"https://www.youtube.com/watch?v=2v8DmFkL6jU", note:"How to set up drillthrough pages — Day 7"},
+      {label:"YouTube — Power BI Report Design Tips (Guy in a Cube)", url:"https://www.youtube.com/watch?v=7BtwqKVFmWE", note:"Practical design tips from real client reports — Day 7"},
+    ],
+  },
+  {
+    category: "DAX & Measures",
+    icon: "🧮",
+    links: [
+      {label:"DAX Measures vs Calculated Columns (Guy in a Cube)", url:"https://www.youtube.com/watch?v=53RFhSzBBi8", note:"The single most important distinction in Power BI — Day 6"},
+    ],
+  },
+];
+
 const days = [
   {
     id:1, label:"Day 1", title:"How Data Is Stored",
@@ -231,7 +289,7 @@ const days = [
       ]},
     ],
   },
-  {
+{
     id:4, label:"Day 4", title:"Dashboards, Star Schema & First Visuals",
     subtitle:"What a dashboard actually is, your model, and your first 5 visuals", phase:"powerbi",
     recap:"Last time you went into Power BI for the first time — loaded your tables, cleaned them in Power Query, fixed typos and nulls. Today's a big one. Day 4 has been updated after you've been breezing through 😉 you're on a corporate journey now.",
@@ -250,6 +308,10 @@ const days = [
         {id:"m7", text:"You now have a working 4-table star schema. Take a screenshot — this is worth being proud of."},
       ]},
       {type:"lesson", title:"Watch Second — Popular Visualisations", content:"With your model built, now watch this. It walks through the chart types you'll use constantly: stacked bar, stacked column, line, line + column, scatter, pie/donut, card and table. Keep this on hand as a reference.", video:{label:"Popular Visualizations in Power BI (Alex The Analyst)", url:"https://www.youtube.com/watch?v=3NV5Jtbhfcw", note:"Timestamps: 1:30 Stacked Bar, 3:00 Stacked Column, 5:12 Line, 7:30 Line+Column, 8:36 Scatter, 9:29 Pie/Donut, 11:08 Card, 12:21 Table"}},
+      {type:"resources", title:"Further Reading & Inspiration", links:[
+        {label:"ZoomCharts — Power BI Dashboard Examples (Most Popular)", url:"https://zoomcharts.com/en/microsoft-power-bi-custom-visuals/dashboard-and-report-examples/?sort_by=most-popular&search_val=", note:"Browse real dashboards for layout inspiration — great to look at before building your own"},
+        {label:"DataCamp — Power BI Visuals Beginner Guide", url:"https://www.datacamp.com/tutorial/power-bi-visuals-beginner-guide", note:"Written guide covering all the main visual types with explanations"},
+      ]},
       {type:"lesson", title:"Chart Types — When to Use What", content:"Bar chart (horizontal) — great for comparing categories with long labels, like presenting problems or surgery names.\n\nColumn chart (vertical) — same idea but better when you want a left-to-right sense of progression, like months.\n\nLine chart — built for trends over time. Always put your date field on the X axis. This is the one place where order matters — Power BI needs to know your dates are continuous, not just categories.\n\nPie / Donut chart — only ever for proportion of a whole, like nationality split. Never use a pie chart to show change over time — that's what line charts are for. A pie chart with more than 5-6 slices becomes unreadable, so use it sparingly.\n\nScatter chart — shows the relationship between two numeric values, like PHQ-9 score vs GAD-7 score per patient.\n\nCard — a single big number. Total Patients, Recovery Rate. You'll use these once you have measures, in a later day.",
         callout:"Rule of thumb: if you're showing a trend over time, use a line chart. If you're comparing categories, use a bar or column chart. If you're showing parts of a whole, use a pie chart — but only with a handful of categories."},
       {type:"lesson", title:"Table vs Matrix", content:"A Table shows your data in flat rows and columns — like Excel. Good for a detailed list, e.g. every patient and their referral date.\n\nA Matrix is more like a Pivot Table — it lets you put one field on rows and another on columns, and it shows you a cross-tab. For example: Presenting Problem on rows, Nationality on columns, and Count of Patients in the values. This is brilliant for spotting patterns a simple bar chart would hide — like whether a particular nationality is more associated with one presenting problem than another.\n\nUse a Table when you want a clean list. Use a Matrix when you want to cross-reference two categories against each other.",
@@ -260,19 +322,21 @@ const days = [
         {id:"v2", text:"BAR CHART — drag Nationality onto a bar chart with Count of PatientID. Compare how it reads next to the pie chart."},
         {id:"v3", text:"LINE CHART — drag ReferralDate onto the X axis and Count of PatientID onto the Y axis. Check Power BI is reading ReferralDate as a continuous date, not sorting it as text."},
         {id:"v4", text:"TABLE — add a table visual with PatientID, FullName (or FirstName + LastName), PresentingProblem and ReferralDate. This is your detail view."},
-        {id:"v5", text:"MATRIX — add a matrix with PresentingProblem on rows, Nationality on columns, and Count of PatientID in values. Look for any patterns. Does anything stand out?"},
-        {id:"v6", text:"No KPI cards yet — those need measures, which comes in a later day. For now, this is purely visual practice."},
+        {id:"v5", text:"MATRIX — Play around with a matrix to understand different ways to split out columns. Look for any patterns. Does anything stand out?"},
+        {id:"v6", text:"KPI cards — Have a play with KPIs and Multi-Cards but these typically use measures which we will cover tomorrow."},
       ]},
       {type:"quiz", questions:[
         {q:"You want to show how referrals have changed month by month over the year. Which chart type is correct?", options:["Pie chart","Line chart","Card","Matrix"], answer:1, explanation:"Line charts are built for trends over time. Pie charts show proportion of a whole at a single point in time, not change over time."},
         {q:"You want to compare PresentingProblem against Nationality to see if any patterns exist between the two categories. What should you use?", options:["A pie chart","A line chart","A Matrix — Presenting Problem on rows, Nationality on columns","A card"], answer:2, explanation:"A Matrix lets you cross-reference two categorical fields against each other, like a pivot table. A pie or line chart can only really show one category at a time."},
         {q:"Your ReferralDate column is showing on a line chart in alphabetical order rather than chronological order — March before January. What's the likely cause?", options:["The chart type is wrong","The column isn't recognised as a Date type — it's probably still Text","Power BI is broken","You need to use a Matrix instead"], answer:1, explanation:"If a date column is stored as Text, Power BI sorts it alphabetically. Go back to Power Query and confirm the column type is set to Date, not Text."},
         {q:"Why shouldn't you use a pie chart to show 8 different presenting problems?", options:["Pie charts can only show 2 categories","Too many slices become hard to read and compare visually — a bar chart works better for many categories","Power BI doesn't allow more than 5 slices","Pie charts only work with numbers, not categories"], answer:1, explanation:"Pie charts are great for a handful of categories but become cluttered and hard to compare visually beyond 5-6 slices. A bar chart scales much better for more categories."},
+        {q:"What does KPI stand for?", options:["Key Performance Indicator","Key Process Information","Key Power BI Index","Key Progress Indicator"], answer:0, explanation:"KPI stands for Key Performance Indicator. It's a measurable value that shows how effectively a service or organisation is achieving its key objectives — like recovery rate or DNA rate in a talking therapies service."},
+        {q:"What are KPI visuals typically used for on a dashboard?", options:["Showing trends over time","Displaying a single headline number — like total patients, recovery rate or DNA rate — at a glance","Cross-referencing two categories against each other","Showing the relationship between two numeric values"], answer:1, explanation:"KPI cards are designed to surface a single important number front and centre. On a health service dashboard that might be Total Referrals, Recovery Rate or Average Wait Time — the numbers a manager wants to see the moment they open the report."},
       ]},
       {type:"hardquiz", questions:[
         {q:"You connect GP Surgeries to Patients via SurgeryID but Power BI shows a 'many-to-many' warning. Patients has 30 rows. What's the most likely cause given what you fixed earlier in the course?", options:["GP Surgeries has too many columns","There's a duplicate PatientID still in the Patients table breaking its uniqueness as the 'one' side","SurgeryID is the wrong data type","Power BI has a bug"], answer:1, explanation:"If a duplicate PatientID slipped through, Patients is no longer cleanly unique on its key, which can cascade into ambiguous relationships elsewhere in the model. Always double check your dimension tables are clean before connecting them."},
         {q:"You build a Matrix with PresentingProblem on rows and Nationality on columns. One cell shows a count of 0. What does that tell you?", options:["The model is broken","No patients of that nationality have that presenting problem in the dataset — a genuinely useful absence to notice","You need to refresh the data","The relationship is many-to-many"], answer:1, explanation:"A 0 in a Matrix cell is real information — it tells you that combination simply doesn't occur in your data. Spotting absences like this is exactly the kind of pattern recognition a consultant gets paid to notice."},
-        {q:"Why are KPI cards intentionally left out of today's visuals even though they're the most common thing people picture on a dashboard?", options:["Cards are too hard to build","Cards typically display a measure (like Recovery Rate %) and you haven't learned to write measures yet", "Cards don't work with this dataset","Cards require a Date Table first"], answer:1, explanation:"A card usually shows a single calculated number — most often a DAX measure rather than a raw column. Since measures haven't been taught yet, building cards now would mean copying syntax without understanding it. Cards will make much more sense once you've covered measures."},
+        {q:"A manager wants a dashboard that shows recovery rate, DNA rate and total referrals at a glance — all updating when they filter by borough. What visual type handles each of these best, and what do they need behind them to work properly?", options:["Bar charts — they just need the raw columns","KPI cards backed by DAX measures — so they respond dynamically to any filter or slicer applied","Tables — because they show all the detail","Pie charts — because they show proportions"], answer:1, explanation:"KPI cards showing dynamic values need DAX measures behind them, not just raw columns. A measure like Recovery Rate recalculates instantly when a borough slicer changes — that's what makes a dashboard feel live and intelligent rather than static."},
       ]},
     ],
   },
@@ -590,18 +654,38 @@ function SimpleTable({headers,rows}) {
 }
 
 function StarDiagram() {
+  const spokes = [
+    {label:"Sessions\n(Fact)", side:"left"},
+    {label:"Outcomes", side:"left"},
+    {label:"GP Surgeries", side:"right"},
+  ];
   return (
-    <div style={{background:COLORS.bg,borderRadius:14,padding:24,margin:"16px 0",textAlign:"center"}}>
-      <div style={{display:"flex",justifyContent:"center",alignItems:"center",flexWrap:"wrap",gap:8}}>
-        {["Sessions\n(Fact)","Outcomes","GP Surgeries"].map((label,i)=>(
-          <div key={i} style={{display:"flex",flexDirection:i<2?"row":"row-reverse",alignItems:"center"}}>
-            <div style={{background:COLORS.primaryLight,border:`2px solid ${COLORS.primary}`,borderRadius:10,padding:"8px 14px",fontSize:12,fontWeight:600,color:COLORS.primary,whiteSpace:"pre-line",textAlign:"center"}}>{label}</div>
-            <div style={{width:32,height:2,background:COLORS.primary}}/>
-            {i===1&&<div style={{background:COLORS.accent,border:`2px solid ${COLORS.accent}`,borderRadius:12,padding:"10px 18px",fontSize:13,fontWeight:700,color:"#fff"}}>Patients<br/><span style={{fontSize:11,fontWeight:400}}>Central Hub</span></div>}
-          </div>
-        ))}
+    <div style={{background:COLORS.bg,borderRadius:14,padding:24,margin:"16px 0"}}>
+      <div style={{display:"flex",justifyContent:"center",alignItems:"center",gap:0}}>
+        {/* Left spokes */}
+        <div style={{display:"flex",flexDirection:"column",gap:16,alignItems:"flex-end"}}>
+          {spokes.filter(s=>s.side==="left").map((s,i)=>(
+            <div key={i} style={{display:"flex",alignItems:"center",gap:0}}>
+              <div style={{background:COLORS.primaryLight,border:`2px solid ${COLORS.primary}`,borderRadius:10,padding:"8px 14px",fontSize:12,fontWeight:600,color:COLORS.primary,whiteSpace:"pre-line",textAlign:"center"}}>{s.label}</div>
+              <div style={{width:40,height:2,background:COLORS.primary}}/>
+            </div>
+          ))}
+        </div>
+        {/* Centre hub */}
+        <div style={{background:COLORS.accent,border:`2px solid ${COLORS.accent}`,borderRadius:12,padding:"14px 20px",fontSize:13,fontWeight:700,color:"#fff",textAlign:"center",zIndex:1,flexShrink:0}}>
+          Patients<br/><span style={{fontSize:11,fontWeight:400}}>Central Hub</span>
+        </div>
+        {/* Right spokes */}
+        <div style={{display:"flex",flexDirection:"column",gap:16,alignItems:"flex-start"}}>
+          {spokes.filter(s=>s.side==="right").map((s,i)=>(
+            <div key={i} style={{display:"flex",alignItems:"center",gap:0}}>
+              <div style={{width:40,height:2,background:COLORS.primary}}/>
+              <div style={{background:COLORS.primaryLight,border:`2px solid ${COLORS.primary}`,borderRadius:10,padding:"8px 14px",fontSize:12,fontWeight:600,color:COLORS.primary,whiteSpace:"pre-line",textAlign:"center"}}>{s.label}</div>
+            </div>
+          ))}
+        </div>
       </div>
-      <div style={{marginTop:12,fontSize:12,color:COLORS.muted}}>Every table connects to Patients via PatientID (or SurgeryID for GP Surgeries)</div>
+      <div style={{marginTop:16,textAlign:"center",fontSize:12,color:COLORS.muted}}>Every table connects directly to Patients — that's the star</div>
     </div>
   );
 }
@@ -938,7 +1022,7 @@ export default function App() {
             </button>
           </div>
           <div style={{display:"flex",gap:0,marginTop:16,overflowX:"auto"}}>
-            {[{id:"course",label:"Course"},{id:"tips",label:"Tips & Tricks"},{id:"glossary",label:"Glossary"}].map(p=>(
+            {[{id:"course",label:"Course"},{id:"tips",label:"Tips & Tricks"},{id:"glossary",label:"Glossary"},{id:"resources",label:"Resources"}].map(p=>(
               <button key={p.id} onClick={()=>setActivePage(p.id)}
                 style={{background:"none",border:"none",borderBottom:activePage===p.id?"3px solid #E8845C":"3px solid transparent",color:activePage===p.id?"#E8845C":"rgba(255,255,255,0.6)",fontWeight:activePage===p.id?700:500,fontSize:14,padding:"10px 18px",cursor:"pointer",whiteSpace:"nowrap",fontFamily:"inherit",transition:"all 0.15s"}}>
                 {p.label}
@@ -1010,6 +1094,35 @@ export default function App() {
             </div>
           </div>
         )}
+
+        {activePage==="resources"&&(
+          <div>
+            <div style={{fontWeight:800,fontSize:22,marginBottom:4}}>All Resources</div>
+            <div style={{fontSize:14,color:COLORS.muted,marginBottom:24}}>Every link used across the course, organised by topic. Bookmark what you need.</div>
+            <div style={{display:"flex",flexDirection:"column",gap:20}}>
+              {allResources.map((cat,i)=>(
+                <div key={i} style={{background:COLORS.card,border:`1.5px solid ${COLORS.border}`,borderRadius:16,padding:22}}>
+                  <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:16}}>
+                    <span style={{fontSize:20}}>{cat.icon}</span>
+                    <div style={{fontWeight:700,fontSize:16,color:COLORS.primary}}>{cat.category}</div>
+                  </div>
+                  <div style={{display:"flex",flexDirection:"column",gap:10}}>
+                    {cat.links.map((l,li)=>(
+                      <a key={li} href={l.url} target="_blank" rel="noreferrer" style={{display:"flex",alignItems:"flex-start",gap:12,background:COLORS.bg,borderRadius:10,padding:"12px 14px",textDecoration:"none"}}>
+                        <span style={{fontSize:16,flexShrink:0}}>🔗</span>
+                        <div>
+                          <div style={{fontWeight:600,color:COLORS.primary,fontSize:14}}>{l.label}</div>
+                          <div style={{color:COLORS.muted,fontSize:13,marginTop:2}}>{l.note}</div>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
       </div>
     </div>
   );
